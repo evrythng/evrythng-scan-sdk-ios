@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="EvrythngScannerVC" customClass="EvrythngScannerVC" customModule="EvrythngiOS" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="27r-Hg-Fff" id="kWz-If-wg0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="27r-Hg-Fff">
+                    <rect key="frame" x="0.0" y="33.5" width="375" height="600"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="27r-Hg-Fff" secondAttribute="height" multiplier="10:16" id="nYg-yv-n8N"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="27r-Hg-Fff" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I5L-uF-xCq"/>
+                <constraint firstItem="27r-Hg-Fff" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ajJ-B3-y2I"/>
+                <constraint firstAttribute="trailing" secondItem="27r-Hg-Fff" secondAttribute="trailing" id="dTA-Vd-kLK"/>
+                <constraint firstItem="27r-Hg-Fff" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="os6-HD-EVE"/>
+            </constraints>
+            <point key="canvasLocation" x="48.5" y="75.5"/>
+        </view>
+    </objects>
+</document>

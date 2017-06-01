@@ -1,0 +1,35 @@
+EvrythngiOS.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+EvrythngiOS.xcodeproj/project.xcworkspace/xcuserdata/imfree.jdcastro.xcuserdatad/UserInterfaceState.xcuserstate
+EvrythngiOS.xcodeproj/xcuserdata/imfree.jdcastro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+EvrythngiOS.xcodeproj/xcuserdata/imfree.jdcastro.xcuserdatad/xcschemes/Evrythng-iOS.xcscheme
+
+# Mac OS X Finder
+.DS_Store
+
+# Private Keys
+*.pem
+
+# Xcode legacy
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+
+# Xcode
+xcuserdata/
+project.xcworkspace/
+DerivedData/
+
+# build products
+build/
+*.[oa]
+
+# repositories
+.hg
+.svn
+CVS
+
+# Cocoapods
+Pods/
