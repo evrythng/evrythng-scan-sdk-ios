@@ -33,8 +33,8 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftyJSON', '~> 3.1'
   s.dependency 'Moya', '~> 8.0.3'
   s.dependency 'MoyaSugar', '~> 0.4'
-  s.dependency 'SwiftEventBus', '~> 2.1'
   s.dependency 'Moya-SwiftyJSONMapper', '~> 2.2'
-  s.dependency 'QRCodeReader.swift', '~> 7.4.1'
+  s.dependency 'GoogleMobileVision/BarcodeDetector'
+  s.dependency 'KRProgressHUD'
 
 end

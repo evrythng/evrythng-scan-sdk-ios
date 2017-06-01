@@ -12,8 +12,8 @@ target 'EvrythngiOS' do
   pod 'MoyaSugar', '~> 0.4'
   pod 'Moya-SwiftyJSONMapper', '~> 2.2'
   pod 'SwiftyJSON', '~> 3.1'
-  pod 'SwiftEventBus', '~> 2.1'
-  pod 'QRCodeReader.swift', '~> 7.4.1'
+  #pod 'SwiftEventBus', '~> 2.1'
+  #pod 'QRCodeReader.swift', '~> 7.4.1'
   pod 'GoogleMobileVision/BarcodeDetector'
   pod 'KRProgressHUD'
   target 'EvrythngiOSTests' do
