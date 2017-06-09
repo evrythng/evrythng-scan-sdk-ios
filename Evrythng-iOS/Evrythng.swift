@@ -44,8 +44,7 @@ public class Evrythng {
             
             self.apiManager = EvrythngApiManager(apiKey: self.appToken!)
             
-            // TODO: Authenticate in Evrythng API
-            UserDefaultsUtils.save(key: "pref_key_authorization", value: self.appToken! as AnyObject)
+            UserDefaultsUtils.save(key: Constants.CachedAppToken, value: self.appToken! as AnyObject)
             self.delegate?.evrythngInitializationDidSucceed()
         }
     }

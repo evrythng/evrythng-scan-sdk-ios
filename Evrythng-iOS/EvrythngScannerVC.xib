@@ -27,10 +27,24 @@
                         <constraint firstAttribute="width" secondItem="27r-Hg-Fff" secondAttribute="height" multiplier="10:16" id="nYg-yv-n8N"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb3-qp-2Ff">
+                    <rect key="frame" x="0.0" y="635" width="54" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="54" id="RGg-IU-pn1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Back"/>
+                    <connections>
+                        <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="bls-zv-yaB"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="bb3-qp-2Ff" firstAttribute="top" secondItem="27r-Hg-Fff" secondAttribute="bottom" constant="1.5" id="7st-Rh-bnd"/>
+                <constraint firstItem="bb3-qp-2Ff" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GS5-6Y-GIX"/>
                 <constraint firstItem="27r-Hg-Fff" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I5L-uF-xCq"/>
+                <constraint firstAttribute="bottom" secondItem="bb3-qp-2Ff" secondAttribute="bottom" id="Jgv-kF-3r5"/>
                 <constraint firstItem="27r-Hg-Fff" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ajJ-B3-y2I"/>
                 <constraint firstAttribute="trailing" secondItem="27r-Hg-Fff" secondAttribute="trailing" id="dTA-Vd-kLK"/>
                 <constraint firstItem="27r-Hg-Fff" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="os6-HD-EVE"/>

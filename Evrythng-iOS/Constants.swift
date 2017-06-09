@@ -10,4 +10,5 @@ import UIKit
 
 public struct Constants {
     static let AppToken = "evrythng_app_token"
+    static let CachedAppToken = "cached_evrythng_app_token"
 }

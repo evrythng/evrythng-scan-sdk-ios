@@ -31,6 +31,18 @@ public class EvrythngScannerVC: UIViewController {
     
     // MARK: - IBActions
     
+    @IBAction func actionBack(_ sender: UIButton) {
+        if let navVC = self.navigationController {
+            if(navVC.childViewControllers.count == 0) {
+                navVC.dismiss(animated: true, completion: nil)
+            } else {
+                navVC.popViewController(animated: true)
+            }
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - View Controller Life Cycle
     
     override public func viewDidLoad() {
@@ -40,6 +52,18 @@ public class EvrythngScannerVC: UIViewController {
         self.cameraFrameExtractor = EvrythngCameraFrameExtractor()
         self.cameraFrameExtractor.delegate = self
         self.detected = false;
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(EvrythngScannerVC.back(sender:)))
+        self.navigationController?.navigationItem.leftBarButtonItem = newBackButton
+    }
+    
+    @objc func back(sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func scanImage(ciImage: CIImage?) {

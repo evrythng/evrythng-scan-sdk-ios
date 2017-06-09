@@ -73,14 +73,24 @@ public class EvrythngScanner {
         if let navPresentingVC = self.presentingVC?.navigationController {
             navPresentingVC.pushViewController(self.barcodeScannerVC, animated: true)
         } else {
-             self.presentingVC?.present(self.barcodeScannerVC, animated: true, completion: nil)
+            let navController = UINavigationController(rootViewController: self.barcodeScannerVC)
+            //navController.pushViewController(self.barcodeScannerVC, animated: false)
+            
+            self.presentingVC?.present(navController, animated: true, completion: nil)
+//            self.presentingVC?.present(self.barcodeScannerVC, animated: true, completion: nil)
         }
     }
+    
     
     func dismissVC(viewController: UIViewController) {
         self.barcodeScannerVC.evrythngScannerDelegate = nil
         if let navPresentingVC = viewController.navigationController {
-            navPresentingVC.popViewController(animated: true)
+            
+            if(navPresentingVC.childViewControllers.count == 0) {
+                navPresentingVC.dismiss(animated: true, completion: nil)
+            } else {
+                navPresentingVC.popViewController(animated: true)
+            }
         } else {
             viewController.dismiss(animated: true, completion: nil)
         }

@@ -34,6 +34,7 @@ public final class EvrythngApiManager {
     
     public init(apiKey: String) {
         self.apiKey = apiKey
+        UserDefaultsUtils.save(key: Constants.CachedAppToken, value: apiKey as AnyObject)
     }
     
     public init() {

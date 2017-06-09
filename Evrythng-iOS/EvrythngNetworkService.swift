@@ -143,8 +143,8 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         case .logout(let apiKey):
             authorization = apiKey
         default:
-            authorization = UserDefaultsUtils.get(key: "pref_key_authorization") as? String
-            if let authorization = UserDefaultsUtils.get(key: "pref_key_authorization") as? String{
+            authorization = UserDefaultsUtils.get(key: Constants.CachedAppToken) as? String
+            if let authorization = UserDefaultsUtils.get(key: Constants.CachedAppToken) as? String{
                 headers[EvrythngNetworkServiceConstants.HTTP_HEADER_AUTHORIZATION] = authorization
             }
         }
