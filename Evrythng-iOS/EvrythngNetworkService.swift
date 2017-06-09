@@ -53,7 +53,8 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         case .authenticateUser:
             return .post("/auth/evrythng")
         case .validateUser(let userId, _):
-            return .post("/users/\(userId)/validate")
+            let path = "auth/evrythng/users/\(userId)/validate"
+            return .post(path)
         case .logout:
             return .post("/auth/all/logout")
         case .editIssue(let owner, let repo, let number, _, _):

@@ -39,7 +39,7 @@ public class EvrythngUserValidator: EvrythngNetworkExecutableProtocol {
                 let data = moyaResponse.data
                 let statusCode = moyaResponse.statusCode
                 let datastring = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                print("Data: \(datastring!) Status Code: \(statusCode)")
+                print("Response Data: \(datastring!) Status Code: \(statusCode)")
                 
                 if(200..<300 ~= statusCode) {
                     do {
