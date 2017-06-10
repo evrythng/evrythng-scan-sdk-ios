@@ -1,0 +1,6 @@
+framework module EvrythngiOS {
+  umbrella header "EvrythngiOS.h"
+
+  export *
+  module * { export * }
+}
