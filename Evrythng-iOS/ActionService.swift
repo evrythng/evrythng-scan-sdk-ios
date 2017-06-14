@@ -8,6 +8,6 @@
 
 import UIKit
 
-public class ActionService {
+public class ActionService: EvrythngService {
 
 }

@@ -15,7 +15,7 @@ import Alamofire
 
 public class EvrythngUserLogouter: EvrythngNetworkExecutableProtocol {
 
-    private var apiKey: String!
+    public var apiKey: String?
     
     private init() {
         
@@ -26,12 +26,14 @@ public class EvrythngUserLogouter: EvrythngNetworkExecutableProtocol {
     }
     
     public func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService> {
-        return EvrythngMoyaProvider<EvrythngNetworkService>()
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>()
+        provider.apiKey = self.apiKey
+        return provider
     }
     
     public func execute(completionHandler: @escaping (EvrythngLogoutResponse?, Swift.Error?) -> Void) {
         
-        let logoutRepo = EvrythngNetworkService.logout(apiKey: self.apiKey)
+        let logoutRepo = EvrythngNetworkService.logout(apiKey: self.apiKey!)
         
         self.getDefaultProvider().request(logoutRepo) { result in
             switch result {
@@ -52,7 +54,7 @@ public class EvrythngUserLogouter: EvrythngNetworkExecutableProtocol {
                 } else {
                     do {
                         let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                        print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                        print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                         completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                     } catch {
                         print(error)

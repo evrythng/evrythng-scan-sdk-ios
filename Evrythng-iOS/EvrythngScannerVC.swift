@@ -14,6 +14,7 @@ public class EvrythngScannerVC: UIViewController {
     // MARK: - Private Variables
     
     private var serialQueue = DispatchQueue(label: "evrythng_scanner_vc_queue", qos: .userInitiated)
+    internal var detector: GMVDetector!
     var cameraFrameExtractor: EvrythngCameraFrameExtractor!
     var detected = false
     
@@ -28,6 +29,11 @@ public class EvrythngScannerVC: UIViewController {
     // MARK: - IBOutlets
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var croppedImageView: UIImageView!
+    @IBOutlet weak var tempImgView: UIImageView!
+    @IBOutlet weak var maskedForegroundView: UIView!
+    @IBOutlet var rootView: UIView!
+    @IBOutlet weak var cameraParentView: UIView!
     
     // MARK: - IBActions
     
@@ -48,9 +54,11 @@ public class EvrythngScannerVC: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.title = "EvrythngScanner"
+        self.detector = GMVDetector(ofType: GMVDetectorTypeBarcode, options: nil)
         
         self.cameraFrameExtractor = EvrythngCameraFrameExtractor()
         self.cameraFrameExtractor.delegate = self
+        
         self.detected = false;
     }
     
@@ -162,21 +170,65 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
         self.evrythngScannerDelegate?.didFinishScan(viewController: self, value: value, format: nil, error: nil)
     }
     
-    func captured(image: UIImage, asCIImage ciImage: CIImage, of value: String, of feature: GMVFeature?) {
-        //print("Captured Image: \(uiImage) Delegate: \(self.evrythngScannerDelegate != nil)")
-        self.imageView.image = image
+    func getScaleBetween(size: CGSize, and size2: CGSize) -> CGFloat {
+        let numerator = size.height * size.width
+        let denominator = size2.height * size2.width
         
+        return numerator / denominator
+    }
+    
+    func captured(image: UIImage, asCIImage ciImage: CIImage) {
         //self.scanImage(ciImage: ciImage)
-        if(!StringUtils.isStringEmpty(string: value)) {
-            if(!self.detected) {
-                self.detected = true
-                self.evrythngScannerDelegate?.didFinishScan(viewController: self, value: value, format: self.getDetectionFormat(from: feature), error: nil)
-            }
-        }
+        self.displayAndDetect(uiImage: image)
     }
     
     func willStartCapture() {
         self.evrythngScannerDelegate?.willStartScan(viewController: self)
+    }
+    
+    func displayAndDetect(uiImage: UIImage) {
+        
+        //let xScale = self.view.frame.size.width / uiImage.size.width
+        let yScale = self.view.frame.size.height / (uiImage.size.height * uiImage.scale)
+        
+        let capturedFrame = CGRect(x: self.maskedForegroundView.frame.origin.x * yScale, y: self.maskedForegroundView.frame.origin.y / yScale, width: self.maskedForegroundView.frame.size.width / yScale , height: self.maskedForegroundView.frame.size.height / yScale)
+        
+        //print("Captured: \(String(describing:capturedFrame)) Image Size: \(String(describing:uiImage.size))")
+        //print("Orig Frame: \(String(describing:self.maskedForegroundView.frame)) Parent: \(String(describing:self.view.frame))")
+        
+        let croppedImage = uiImage.crop(rect: capturedFrame)
+        DispatchQueue.main.sync {
+            self.imageView.image = uiImage
+            self.croppedImageView.image = uiImage
+            self.tempImgView.image = croppedImage
+        }
+        
+        if let barcodeFeatures:[GMVBarcodeFeature] = self.detector.features(in: croppedImage, options: nil) as? [GMVBarcodeFeature] {
+            
+            let barcodeFeature = barcodeFeatures.last
+            var barcodeRawValue = ""
+            
+            if (barcodeFeature != nil) {
+                let barcodeFormat = barcodeFeature!.format as GMVDetectorBarcodeFormat
+                barcodeRawValue = (barcodeFeature!.rawValue ?? "")!
+                
+                print("Detected \(barcodeFeatures.count) barcode(s) with Value: \(barcodeRawValue) Format: \(barcodeFormat)")
+            } else {
+                //print ("No Detected Barcodes")
+            }
+            
+            DispatchQueue.main.sync {
+                if(!StringUtils.isStringEmpty(string: barcodeRawValue)) {
+                    if(!self.detected) {
+                        self.detected = true
+                        self.evrythngScannerDelegate?.didFinishScan(viewController: self, value: barcodeRawValue, format: self.getDetectionFormat(from: barcodeFeature), error: nil)
+                    }
+                }
+            }
+            
+        } else {
+            print("Unable to extract features from image")
+        }
     }
 }
 

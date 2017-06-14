@@ -19,6 +19,8 @@ public protocol EvrythngNetworkExecutableProtocol {
     
     //func provider() -> MoyaSugarProvider<EvrythngNetworkService>
     func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService>
+    
+    var apiKey: String? { get }
 }
 
 extension EvrythngNetworkExecutableProtocol {

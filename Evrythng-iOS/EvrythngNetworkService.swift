@@ -15,16 +15,14 @@ public enum EvrythngNetworkService {
     case url(String)
     
     // User
-    case createUser(user: User?, isAnonymous: Bool)
+    case createUser(apiKey: String?, user: User?)
     case deleteUser(operatorApiKey: String, userId: String)
-    case authenticateUser(credentials: Credentials)
-    case validateUser(userId: String, activationCode: String)
+    case authenticateUser(apiKey: String?, credentials: Credentials)
+    case validateUser(apiKey: String?, userId: String, activationCode: String)
     case logout(apiKey: String)
     
-    case editIssue(owner: String, repo: String, number: Int, title: String?, body: String?)
-    
     // Thng
-    case readThng(thngId: String)
+    case readThng(apiKey: String?, thngId: String)
     
     // Scan
     case identify(scanType: EvrythngScanTypes, scanMethod: EvrythngScanMethods, value: String)
@@ -52,15 +50,13 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
             return .delete("/users/\(userId)")
         case .authenticateUser:
             return .post("/auth/evrythng")
-        case .validateUser(let userId, _):
+        case .validateUser(_, let userId, _):
             let path = "auth/evrythng/users/\(userId)/validate"
             return .post(path)
         case .logout:
             return .post("/auth/all/logout")
-        case .editIssue(let owner, let repo, let number, _, _):
-            return .patch("/repos/\(owner)/\(repo)/issues/\(number)")
             
-        case .readThng(let thngId):
+        case .readThng(_, let thngId):
             return .get("/thngs/\(thngId)")
         case .identify:
             return .get("/scan/identifications")
@@ -80,7 +76,16 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
     /// encoding + parameters
     public var params: Parameters? {
         switch self {
-        case .createUser(let user, let anonymous):
+        case .createUser(_, let user):
+            if(user != nil) {
+                return JSONEncoding() => user!.jsonData!.dictionaryObject!
+            } else {
+                var params:[String: Any] = [:]
+                params[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] = ["anonymous": "true"]
+                params[EvrythngNetworkServiceConstants.REQUEST_BODY_PARAMETER_KEY] = [:]
+                return CompositeEncoding() => params
+            }
+            /*
             if(anonymous == true) {
                 var params:[String: Any] = [:]
                 params[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] = ["anonymous": "true"]
@@ -89,30 +94,19 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
             } else {
                 return JSONEncoding() => user!.jsonData!.dictionaryObject!
             }
-            /*
-            [
-                "firstName": "Test First1", "lastName": "Test Last1", "email": "validemail1@email.com", "password": "testPassword1"
-            ]
-            */
-        case .validateUser(_, let activationCode):
+             */
+        case .validateUser(_, _, let activationCode):
             return JSONEncoding() => ["activationCode": activationCode]
-        case .authenticateUser(let credentials):
+        case .authenticateUser(_, let credentials):
             return JSONEncoding() => ["email": credentials.email!, "password": credentials.password!]
         case .logout:
             return JSONEncoding() => [:]
             
-        case .identify(let scanType, let scanMethod, let value):
+        case .identify(let scanType, _, let value):
             let urlEncodedFilter = "type=\(scanType.rawValue)&value=\(value)"
             let encoding = URLEncoding() => ["filter": urlEncodedFilter]
             print("Encoding: \(encoding.values.description)")
             return encoding
-            
-        case .editIssue(_, _, _, let title, let body):
-            // Use `URLEncoding()` as default when not specified
-            return [
-                "title": title,
-                "body": body,
-            ]
             
         default:
             return JSONEncoding() => [:]
@@ -121,8 +115,6 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
     
     public var sampleData: Data {
         switch self {
-        case .editIssue(_, let owner, _, _, _):
-            return "{\"id\": 100, \"owner\": \"\(owner)}".utf8Encoded
         default:
             return "{}".utf8Encoded
         }
@@ -136,22 +128,32 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         
         var authorization: String?
         switch(self) {
-        case .deleteUser(let operatorApiKey, _):
-            // Operator API Key
-            //authorization = "hohzaKH7VbVp659Pnr5m3xg2DpKBivg9rFh6PttT5AnBtEn3s17B8OPAOpBjNTWdoRlosLTxJmUrpjTi"
-            authorization = operatorApiKey
+        case .createUser(let apiKey, _):
+            authorization = apiKey
+        case .authenticateUser(let apiKey, _):
+            authorization = apiKey
+        case .validateUser(let apiKey, _, _):
+            authorization = apiKey
+            
+        // Thng
+        case .readThng(let apiKey, _):
+            authorization = apiKey
         case .logout(let apiKey):
             authorization = apiKey
+        case .deleteUser(let operatorApiKey, _):
+            // Sample Operator API Key
+            //authorization = "hohzaKH7VbVp659Pnr5m3xg2DpKBivg9rFh6PttT5AnBtEn3s17B8OPAOpBjNTWdoRlosLTxJmUrpjTi"
+            authorization = operatorApiKey
         default:
+            // Get from NSUserDefaults instead
             authorization = UserDefaultsUtils.get(key: Constants.CachedAppToken) as? String
-            if let authorization = UserDefaultsUtils.get(key: Constants.CachedAppToken) as? String{
-                headers[EvrythngNetworkServiceConstants.HTTP_HEADER_AUTHORIZATION] = authorization
-            }
         }
         
-        if let auth = authorization {
-            if(!auth.isEmpty) {
-                headers[EvrythngNetworkServiceConstants.HTTP_HEADER_AUTHORIZATION] = auth
+        if let auth = authorization, !auth.isEmpty {
+            headers[EvrythngNetworkServiceConstants.HTTP_HEADER_AUTHORIZATION] = auth
+        } else {
+            if let cachedApiKey = UserDefaultsUtils.get(key: Constants.CachedAppToken) as? String {
+                headers[EvrythngNetworkServiceConstants.HTTP_HEADER_AUTHORIZATION] = cachedApiKey
             }
         }
         
@@ -161,7 +163,7 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
     
     public var task: Task {
         switch self {
-        case .editIssue, .createUser, .url:
+        case .createUser, .url:
             fallthrough
         default:
             return .request

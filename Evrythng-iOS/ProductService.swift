@@ -8,6 +8,6 @@
 
 import UIKit
 
-public class ProductService {
+public class ProductService: EvrythngService {
 
 }

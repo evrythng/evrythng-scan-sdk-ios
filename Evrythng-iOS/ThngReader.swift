@@ -13,6 +13,8 @@ import Moya_SwiftyJSONMapper
 
 public class ThngReader: EvrythngNetworkExecutableProtocol {
     
+    public var apiKey: String?
+    
     private var thngId: String?
     
     private init() {
@@ -24,21 +26,23 @@ public class ThngReader: EvrythngNetworkExecutableProtocol {
     }
     
     public func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService> {
-        return EvrythngMoyaProvider<EvrythngNetworkService>()
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>()
+        provider.apiKey = self.apiKey
+        return provider
     }
     
     public func execute(completionHandler: @escaping (Thng? , Swift.Error?) -> Void) {
         
         if let thngId = self.thngId {
             
-            let readThngRequest = EvrythngNetworkService.readThng(thngId: thngId)
+            let readThngRequest = EvrythngNetworkService.readThng(apiKey: self.apiKey, thngId: thngId)
             self.getDefaultProvider().request(readThngRequest) { result in
                 switch result {
                 case let .success(moyaResponse):
                     let data = moyaResponse.data
                     let statusCode = moyaResponse.statusCode
                     let datastring = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                    print("Data: \(datastring) Status Code: \(statusCode)")
+                    print("Data: \(String(describing: datastring)) Status Code: \(statusCode)")
                     
                     if(200..<300 ~= statusCode) {
                         do {
@@ -52,7 +56,7 @@ public class ThngReader: EvrythngNetworkExecutableProtocol {
                     } else {
                         do {
                             let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                            print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                            print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                             completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                         } catch {
                             print(error)
