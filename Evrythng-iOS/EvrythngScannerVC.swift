@@ -297,52 +297,6 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             print("Unable to extract features from image")
         }
     }
-    
-    func getCropAreaRect(cropRect: CGRect, image: UIImage) -> CGRect {
-        var rect = CGRect(x:0,y:0,width:0,height:0)
-        
-        return rect
-    }
-    
-    func getAspectFillSize(aspectRatio: CGSize, minSize: CGSize) -> CGSize {
-        var aspectFillSize:CGSize = CGSize(width: minSize.width, height:minSize.height);
-        let mW = minSize.width / aspectRatio.width;
-        let mH = minSize.height / aspectRatio.height;
-        if(mH > mW) {
-            aspectFillSize.width = mH * aspectRatio.width;
-        }
-        else if(mW > mH) {
-            aspectFillSize.height = mW * aspectRatio.height;
-        }
-        return aspectFillSize;
-    }
-    
-    /// Scales an image to fit within a bounds with a size governed by the passed size. Also keeps the aspect ratio.
-    /// Switch MIN to MAX for aspect fill instead of fit.
-    ///
-    /// - parameter newSize: newSize the size of the bounds the image must fit within.
-    ///
-    /// - returns: a new scaled image.
-//    func scaleImageToSize(newSize: CGSize, containerSize: CGSize) -> UIImage {
-//        var scaledImageRect = CGRect.zero
-//        
-//        let aspectWidth = newSize.width/containerSize.width
-//        let aspectheight = newSize.height/containerSize.height
-//        
-//        let aspectRatio = max(aspectWidth, aspectheight)
-//        
-//        scaledImageRect.size.width = containerSize.width * aspectRatio;
-//        scaledImageRect.size.height = containerSize.height * aspectRatio;
-//        scaledImageRect.origin.x = (newSize.width - scaledImageRect.size.width) / 2.0;
-//        scaledImageRect.origin.y = (newSize.height - scaledImageRect.size.height) / 2.0;
-//        
-//        UIGraphicsBeginImageContext(newSize)
-//        draw(in: scaledImageRect)
-//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        
-//        return scaledImage!
-//    }
 }
 
 extension EvrythngScannerVC {

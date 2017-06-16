@@ -31,6 +31,7 @@
 		08780D331ED294150058D685 /* ScopeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08780D321ED294150058D685 /* ScopeResource.swift */; };
 		08780D351ED294EE0058D685 /* DurableResourceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08780D341ED294EE0058D685 /* DurableResourceModel.swift */; };
 		08780D371ED3120B0058D685 /* ThngReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08780D361ED3120B0058D685 /* ThngReader.swift */; };
+		088A56881EF3B2AD0009D066 /* EvrythngService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088A56871EF3B2AD0009D066 /* EvrythngService.swift */; };
 		0895C04F1EAF4841002E44A0 /* EvrythngiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0895C0451EAF4840002E44A0 /* EvrythngiOS.framework */; };
 		0895C0541EAF4841002E44A0 /* Evrythng_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0895C0531EAF4841002E44A0 /* Evrythng_iOSTests.swift */; };
 		0895C0561EAF4841002E44A0 /* EvrythngiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0895C0481EAF4840002E44A0 /* EvrythngiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -117,6 +118,7 @@
 		08780D321ED294150058D685 /* ScopeResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeResource.swift; sourceTree = "<group>"; };
 		08780D341ED294EE0058D685 /* DurableResourceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurableResourceModel.swift; sourceTree = "<group>"; };
 		08780D361ED3120B0058D685 /* ThngReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThngReader.swift; sourceTree = "<group>"; };
+		088A56871EF3B2AD0009D066 /* EvrythngService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvrythngService.swift; sourceTree = "<group>"; };
 		0895C0451EAF4840002E44A0 /* EvrythngiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EvrythngiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0895C0481EAF4840002E44A0 /* EvrythngiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvrythngiOS.h; sourceTree = "<group>"; };
 		0895C0491EAF4840002E44A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 		08A300B51ECAB2DC006F8047 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				088A56871EF3B2AD0009D066 /* EvrythngService.swift */,
 				08A300B61ECAB2E8006F8047 /* ScanService.swift */,
 				08A300B81ECAB2F4006F8047 /* AuthService.swift */,
 				08A300BA1ECAB314006F8047 /* ThngService.swift */,
@@ -591,6 +594,7 @@
 				089AD9391EDC364C007F7DDD /* EvrythngScanOperator.swift in Sources */,
 				0817DF201EC59A33000A78A7 /* EvrythngUserCreator.swift in Sources */,
 				08666DA61EC945D9004B30BF /* DefaultAlamofireManager.swift in Sources */,
+				088A56881EF3B2AD0009D066 /* EvrythngService.swift in Sources */,
 				08A300BB1ECAB314006F8047 /* ThngService.swift in Sources */,
 				080A16AA1EB074C800601D6F /* EvrythngScanner.swift in Sources */,
 				080A16A31EB06B1100601D6F /* EvrythngScannerDelegate.swift in Sources */,
