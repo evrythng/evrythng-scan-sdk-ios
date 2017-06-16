@@ -222,9 +222,11 @@ extension UIImage {
         rect.size.width*=self.scale
         rect.size.height*=self.scale
         
-        let imageRef = self.cgImage!.cropping(to: rect)
-        let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
-        return image
+        if let imageRef = self.cgImage?.cropping(to: rect) {
+            let image = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+            return image
+        }
+        return self
     }
 }
 
