@@ -14,7 +14,16 @@ import Moya_SwiftyJSONMapper
 
 public class EvrythngMoyaProvider<Target>: MoyaSugarProvider<Target> where Target: EvrythngNetworkTargetType {
     
-    public init() {
+    internal var apiKey: String?
+    
+    public convenience init() {
+        self.init(apiKey: nil)
+    }
+    
+    public init(apiKey: String?) {
+        
+        self.apiKey = apiKey
+        
         let epClosure = { (target: Target) -> Endpoint<Target> in
             
             if case is CompositeEncoding = target.params?.encoding  {

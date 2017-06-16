@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ThngService {
+public class ThngService: EvrythngService {
 
     public func thngReader(thngId: String) -> ThngReader {
         return ThngReader(thngId: thngId)

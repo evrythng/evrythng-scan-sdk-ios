@@ -36,7 +36,7 @@ public class Evrythng {
     public class func initialize(delegate: EvrythngDelegate?) {
         self.delegate = delegate
         
-        print("\(TAG) App Token: \(Evrythng.appToken)")
+        print("\(TAG) App Token: \(String(describing: Evrythng.appToken))")
         
         if(StringUtils.isStringEmpty(string: self.appToken)) {
             self.delegate?.evrythngInitializationDidFail()
@@ -44,8 +44,7 @@ public class Evrythng {
             
             self.apiManager = EvrythngApiManager(apiKey: self.appToken!)
             
-            // TODO: Authenticate in Evrythng API
-            UserDefaultsUtils.save(key: "pref_key_authorization", value: self.appToken! as AnyObject)
+            UserDefaultsUtils.save(key: Constants.CachedAppToken, value: self.appToken! as AnyObject)
             self.delegate?.evrythngInitializationDidSucceed()
         }
     }

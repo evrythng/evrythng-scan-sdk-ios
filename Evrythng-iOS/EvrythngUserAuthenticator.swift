@@ -13,6 +13,8 @@ import Moya_SwiftyJSONMapper
 
 public class EvrythngUserAuthenticator: EvrythngNetworkExecutableProtocol {
     
+    public var apiKey: String?
+    
     private var email: String!
     private var password: String!
     
@@ -26,13 +28,15 @@ public class EvrythngUserAuthenticator: EvrythngNetworkExecutableProtocol {
     }
     
     public func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService> {
-        return EvrythngMoyaProvider<EvrythngNetworkService>()
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>()
+        provider.apiKey = self.apiKey
+        return provider
     }
     
     public func execute(completionHandler: @escaping (Credentials?, Swift.Error?) -> Void) {
         
         let creds = Credentials(email: self.email, password: self.password)
-        let authenticateUserRepo = EvrythngNetworkService.authenticateUser(credentials: creds)
+        let authenticateUserRepo = EvrythngNetworkService.authenticateUser(apiKey: self.apiKey, credentials: creds)
         
         self.getDefaultProvider().request(authenticateUserRepo) { result in
             switch result {
@@ -53,7 +57,7 @@ public class EvrythngUserAuthenticator: EvrythngNetworkExecutableProtocol {
                 } else {
                     do {
                         let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                        print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                        print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                         completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                     } catch {
                         print(error)

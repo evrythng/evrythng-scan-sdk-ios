@@ -12,7 +12,7 @@ import GoogleMobileVision
 
 protocol EvrythngCameraFrameExtractorDelegate: class {
     func willStartCapture()
-    func captured(image: UIImage, asCIImage ciImage: CIImage, of value: String, of feature: GMVFeature?)
+    func captured(image: UIImage, asCIImage ciImage: CIImage)
     func capturedFromAVMetadataObject(value: String, ofType type: String)
 }
 
@@ -21,8 +21,7 @@ internal class EvrythngCameraFrameExtractor: NSObject {
     let position = AVCaptureDevicePosition.back
     let quality = AVCaptureSessionPresetMedium
     
-    var lastKnownDeviceOrientation: UIDeviceOrientation = .unknown
-    var barcodeDetector: GMVDetector!
+    internal var lastKnownDeviceOrientation: UIDeviceOrientation = .unknown
     
     private var permissionGranted = false
     private let sessionQueue = DispatchQueue(label: "session queue")
@@ -45,8 +44,6 @@ internal class EvrythngCameraFrameExtractor: NSObject {
     deinit {
         print("\(#function) EvrythngCameraFrameExtractor")
     }
-    
-    // MARK: AVSession configuration
     
     private func checkPermission() {
         switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
@@ -97,9 +94,10 @@ internal class EvrythngCameraFrameExtractor: NSObject {
         }
     }
     
+    // MARK: AVSession configuration
+    
     private func configureSession() {
         
-        self.barcodeDetector = GMVDetector(ofType: GMVDetectorTypeBarcode, options: nil)
         self.lastKnownDeviceOrientation = UIDevice.current.orientation
         
         guard self.permissionGranted else {
@@ -149,7 +147,7 @@ internal class EvrythngCameraFrameExtractor: NSObject {
         connection.isVideoMirrored = position == .front
 
         
-        // READ BARCODES
+        // READ BARCODES natively
         /*
         let metaDataOutput = AVCaptureMetadataOutput()
         metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.global())
@@ -191,7 +189,6 @@ internal class EvrythngCameraFrameExtractor: NSObject {
         return UIImage(cgImage: cgImage)
     }
     
-    
 }
 
 // MARK: AVCaptureVideoDataOutputSampleBufferDelegate
@@ -211,35 +208,25 @@ extension EvrythngCameraFrameExtractor: AVCaptureVideoDataOutputSampleBufferDele
             return
         }
         
-        let deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation
-        //let devicePosition = AVCaptureDevicePosition.back
-        //let orientation: GMVImageOrientation = GMVUtility.imageOrientation(from: deviceOrientation, with: devicePosition, defaultDeviceOrientation: self.lastKnownDeviceOrientation)
-        //let options = [GMVDetectorImageOrientation : orientation]
-        
-        if let barcodeFeatures:[GMVBarcodeFeature] = self.barcodeDetector.features(in: uiImage, options: nil) as? [GMVBarcodeFeature] {
-            
-            let barcodeFeature = barcodeFeatures.last
-            var barcodeRawValue = ""
-            
-            if (barcodeFeature != nil) {
-                let barcodeFormat = barcodeFeature!.format as GMVDetectorBarcodeFormat
-                barcodeRawValue = (barcodeFeature!.rawValue ?? "")!
-                
-                print("Detected \(barcodeFeatures.count) barcode(s) with Value: \(barcodeRawValue) Orientation: \(deviceOrientation.rawValue) Format: \(barcodeFormat)")
-            } else {
-                print ("No Detected Barcodes")
-            }
-            
-            DispatchQueue.main.sync { [weak self] in
-                //print("Is Running: \(self.captureSession.isRunning)")
-                if let running = self?.captureSession.isRunning, running == true {
-                    self!.delegate?.captured(image: uiImage, asCIImage: ciImage, of: barcodeRawValue, of: barcodeFeature)
-                }
-            }
-
-        } else {
-            print("Unable to extract features from image")
+        if self.captureSession.isRunning == true {
+            self.delegate?.captured(image: uiImage, asCIImage: ciImage)
         }
+    }
+}
+
+extension UIImage {
+    func crop( rect: CGRect) -> UIImage {
+        var rect = rect
+        rect.origin.x*=self.scale
+        rect.origin.y*=self.scale
+        rect.size.width*=self.scale
+        rect.size.height*=self.scale
+        
+        if let imageRef = self.cgImage?.cropping(to: rect) {
+            let image = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+            return image
+        }
+        return self
     }
 }
 

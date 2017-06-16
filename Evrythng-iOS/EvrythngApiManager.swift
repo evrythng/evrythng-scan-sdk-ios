@@ -13,27 +13,28 @@ public final class EvrythngApiManager {
     private var apiKey:String?
     
     public var scanService: ScanService {
-        return ScanService()
+        return ScanService(apiKey: self.apiKey)
     }
     
     public var thngService: ThngService {
-        return ThngService()
+        return ThngService(apiKey: self.apiKey)
     }
     
     public var authService: AuthService {
-        return AuthService()
+        return AuthService(apiKey: self.apiKey)
     }
     
     public var actionService: ActionService {
-        return ActionService()
+        return ActionService(apiKey: self.apiKey)
     }
     
     public var productService: ProductService {
-        return ProductService()
+        return ProductService(apiKey: self.apiKey)
     }
     
     public init(apiKey: String) {
         self.apiKey = apiKey
+        //UserDefaultsUtils.save(key: Constants.CachedAppToken, value: apiKey as AnyObject)
     }
     
     public init() {

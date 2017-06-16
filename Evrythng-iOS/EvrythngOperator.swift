@@ -13,6 +13,8 @@ import Moya_SwiftyJSONMapper
 
 public class EvrythngOperator: EvrythngNetworkExecutableProtocol {
     
+    public var apiKey: String?
+    
     private var userId: String?
     private var operatorApiKey: String!
     
@@ -30,7 +32,9 @@ public class EvrythngOperator: EvrythngNetworkExecutableProtocol {
     }
     
     public func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService> {
-        return EvrythngMoyaProvider<EvrythngNetworkService>()
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>()
+        provider.apiKey = self.apiKey
+        return provider
     }
     
     public func execute(completionHandler: @escaping (User? , Swift.Error?) -> Void) {
@@ -44,14 +48,14 @@ public class EvrythngOperator: EvrythngNetworkExecutableProtocol {
                     let data = moyaResponse.data
                     let statusCode = moyaResponse.statusCode
                     let datastring = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                    print("Data: \(datastring) Status Code: \(statusCode)")
+                    print("Data: \(String(describing: datastring)) Status Code: \(statusCode)")
                     
                     if(200..<300 ~= statusCode) {
                         completionHandler(nil, nil)
                     } else {
                         do {
                             let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                            print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                            print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                             completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                         } catch {
                             print(error)

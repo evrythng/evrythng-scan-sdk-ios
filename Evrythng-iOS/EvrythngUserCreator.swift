@@ -15,6 +15,8 @@ import Alamofire
 
 public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
     
+    public var apiKey: String?
+    
     private var user: User?
     private var credentials: Credentials!
     
@@ -34,7 +36,6 @@ public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
         
         let epClosure = { (target: EvrythngNetworkService) -> Endpoint<EvrythngNetworkService> in
             
-            
             if case is CompositeEncoding = target.params?.encoding  {
                 if let params = target.params?.values["query"] {
                     print("\(target.defaultURL.absoluteString)")
@@ -52,12 +53,15 @@ public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
             return Endpoint<EvrythngNetworkService>(url: target.url.absoluteString, sampleResponseClosure: target.sampleResponseClosure, method: target.method, parameters: target.params?.values, parameterEncoding: target.params!.encoding, httpHeaderFields: target.httpHeaderFields)
         }
         
-        return EvrythngMoyaProvider<EvrythngNetworkService>(endpointClosure: epClosure)
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>(endpointClosure: epClosure)
+        provider.apiKey = self.apiKey
+        
+        return provider
     }
     
     public func execute(completionHandler: @escaping (Credentials?, Swift.Error?) -> Void) {
         
-        let userRepo = EvrythngNetworkService.createUser(user: self.user, isAnonymous: (self.user == nil))
+        let userRepo = EvrythngNetworkService.createUser(apiKey: self.apiKey, user: self.user)
         //let provider = MoyaSugarProvider<EvrythngNetworkService>()
         
         self.getDefaultProvider().request(userRepo) { result in
@@ -79,7 +83,7 @@ public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
                 } else {
                     do {
                         let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                        print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                        print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                         completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                     } catch {
                         print(error)

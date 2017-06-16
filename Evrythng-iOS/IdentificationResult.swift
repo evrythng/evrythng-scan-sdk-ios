@@ -21,7 +21,16 @@ public final class IdentificationResult: ALSwiftyJSONAble {
     public init?(jsonData: JSON) {
         self.jsonData = jsonData
         self.redirections = jsonData["redirections"].arrayObject as? Array<String>
-        self.thng = Thng(jsonData: jsonData["thng"])
-        self.product = Product(jsonData: jsonData["product"])
+        
+        let jsThng = jsonData["thng"]
+        let jsProduct = jsonData["product"]
+        
+        if(jsThng != JSON.null) {
+            self.thng = Thng(jsonData: jsThng)
+        }
+        
+        if(jsProduct != JSON.null) {
+            self.product = Product(jsonData: jsProduct)
+        }
     }
 }

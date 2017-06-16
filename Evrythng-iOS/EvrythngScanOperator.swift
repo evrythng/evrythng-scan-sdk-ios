@@ -13,6 +13,8 @@ import Moya_SwiftyJSONMapper
 
 public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
     
+    public var apiKey: String?
+    
     private var scanType: EvrythngScanTypes!
     private var scanMethod: EvrythngScanMethods!
     private var value: String!
@@ -28,7 +30,9 @@ public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
     }
     
     public func getDefaultProvider() -> EvrythngMoyaProvider<EvrythngNetworkService> {
-        return EvrythngMoyaProvider<EvrythngNetworkService>()
+        let provider = EvrythngMoyaProvider<EvrythngNetworkService>()
+        provider.apiKey = self.apiKey
+        return provider
     }
     
     public func execute(completionHandler: @escaping (EvrythngScanIdentificationsResponse?, Swift.Error?) -> Void) {
@@ -54,7 +58,7 @@ public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
                 } else {
                     do {
                         let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                        print("EvrythngNetworkErrorResponse: \(err.jsonData?.rawString())")
+                        print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
                         completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                     } catch {
                         print(error)

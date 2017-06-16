@@ -28,7 +28,7 @@ public final class EvrythngScanIdentificationsResponse: ALSwiftyJSONAble {
                     self.results?.append(IdentificationResult(jsonData: dic)!)
                 }
             }
-            print("Init Results: \(self.results)")
+            print("Init Results: \(String(describing: self.results))")
             self.meta = Meta(jsonData: jsonData["meta"])
         }
     }

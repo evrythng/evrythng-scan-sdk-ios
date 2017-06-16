@@ -8,10 +8,14 @@
 
 import UIKit
 
-public class ScanService {
-
+public class ScanService: EvrythngService {
+    
     public func evrythngScanOperator(scanType: EvrythngScanTypes, scanMethod: EvrythngScanMethods, value: String) -> EvrythngScanOperator {
-        return EvrythngScanOperator(scanType: scanType, scanMethod: scanMethod, value: value)
+        
+        let evtOperator = EvrythngScanOperator(scanType: scanType, scanMethod: scanMethod, value: value)
+        evtOperator.apiKey = self.apiKey
+        
+        return evtOperator
     }
     
 }
