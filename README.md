@@ -49,40 +49,72 @@ as this will be the message that will be prompted to the user upon request to us
 
 2. In your `AppDelegate`, declare your import of the SDK:
 
-       import EvrythngiOS
+         import EvrythngiOS
 
 3. In your AppDelegate's `didFinishLaunchingWithOptions()` insert:
 
-       Evrythng.initialize(delegate: nil)
+         Evrythng.initialize(delegate: nil)
 
 ### View Controller Implementation
 
 1. Declare your import of the SDK:
 
-        import EvrythngiOS
+         import EvrythngiOS
 
 2. In your ViewController's `viewDidLoad()`, insert the code:
 
 
-        let evrythngApiManager = EvrythngApiManager(apiKey: “<insert_your_api_key_here>”)
+         let evrythngApiManager = EvrythngApiManager(apiKey: “<insert_your_api_key_here>”)
 
 
 or
 
 
-        let evrythngApiManager = EvrythngApiManager()
+     let evrythngApiManager = EvrythngApiManager()
 
 
  Use the latter if you have already declared the api key in your app’s **Info.plist** just as stated in _SDK Initialization **Step #1**_
 
-3. To test if your API Key works, let's take an example by creating an anonymous user in `viewDidLoad()`:
+### Creating an Anonymous User
 
-       `evrythngApiManager.authService.evrythngUserCreator(user: nil).execute(completionHandler: { (creds, err) in
-            print("Credentials: \(String(describing: creds?.jsonData))")
-        })`
+To test if your API Key works, let's take an example by creating an anonymous user in `viewDidLoad()`:
 
-4. Run your app in a real device and you should see something similar in your Xcode's Console Window:
+     evrythngApiManager.authService.evrythngUserCreator(user: nil).execute(completionHandler: { (creds, err) in
+         print("Credentials: \(String(describing: creds?.jsonData))")
+     })
+
+Now, run your app in a real device and you should see something similar in your Xcode's Console Window:
 
 ![Console Window Output](https://preview.ibb.co/kUUX55/Screen_Shot_2017_06_13_at_8_41_01_PM.png)
 
-5. Hooray! You've just integrated Evrythng iOS SDK into your application!
+### Authenticating a User (Not anonymous)
+
+     evrythngApiManager.authService.evrythngUserAuthenticator(email: email, password: password).execute(completionHandler: { (credentials, err) in
+            if(err != nil) {
+                completion?(nil, err)
+            } else {
+                if let createdCredentialsStringResp = credentials?.jsonData?.rawString() {
+                    print("Created Credentials: \(createdCredentialsStringResp)")
+                }
+                completion?(credentials, nil)
+            }
+        })
+
+### Scanning an Product / Thng
+
+You can use the default integrated barcode scanner by using the following code:
+
+      let evrythngScanner = EvrythngScanner.init(presentedBy: self, withResultDelegate: self)
+      evrythngScanner.scanBarcode()
+
+or you may opt to use your own custom Barcode Scanner and just use the following code upon successfully retrieving the barcode value result:
+
+      evrythngApiManager.scanService.evrythngScanOperator(scanType: <scan_type>, scanMethod: <scan_method>, value: <barcode_value>).execute { (scanIdentifactionsResponse, err) in
+                completionHandler(scanIdentifactionsResponse, err)
+            }
+
+### Logging Out a User
+
+       evrythngApiManager.authService.evrythngUserLogouter(apiKey: credentials.evrythngApiKey!).execute(completionHandler: { (logoutResp, err) in }
+
+Hooray! You've just integrated Evrythng iOS SDK into your application!
