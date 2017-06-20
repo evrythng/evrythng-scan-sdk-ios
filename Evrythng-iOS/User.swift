@@ -19,9 +19,31 @@ public final class User: AbstractUser {
     public private(set) var activationCode: String?
     public private(set) var status: String?
     
-    required public init?(jsonData: JSON) {
-        super.init(jsonData: jsonData)
-        
+    public override var jsonData: JSON? {
+        set {
+            
+        }
+        get {
+            var dict: [String:Any] = [:]
+            dict["email"] = self.email
+            dict["password"] = self.password
+            dict["firstName"] = self.firstName
+            dict["lastName"] = self.lastName
+            dict["activationCode"] = self.activationCode
+            dict["status"] = self.status
+            var userJson = JSON(dictionary: dict)
+            do {
+                try userJson.merge(with: super.jsonData!)
+            } catch {
+                print("Error Merging User object: \(error.localizedDescription)")
+            }
+            return userJson
+        }
+    }
+    
+    public required convenience init?(jsonData: JSON) {
+        self.init()
+        self.jsonData = jsonData
         self.email = jsonData["email"].stringValue
         self.password = jsonData["password"].stringValue
         self.firstName = jsonData["firstName"].stringValue

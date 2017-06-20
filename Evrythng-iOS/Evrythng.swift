@@ -12,6 +12,7 @@ public class Evrythng {
     
     private static let TAG = "Evrythng"
 
+    public static var DEBUGGING_ENABLED = false
     static var apiManager: EvrythngApiManager?
     
     // MARK: Private class vars
@@ -36,7 +37,9 @@ public class Evrythng {
     public class func initialize(delegate: EvrythngDelegate?) {
         self.delegate = delegate
         
-        print("\(TAG) App Token: \(String(describing: Evrythng.appToken))")
+        if(DEBUGGING_ENABLED) {
+            print("\(TAG) App Token: \(String(describing: Evrythng.appToken))")
+        }
         
         if(StringUtils.isStringEmpty(string: self.appToken)) {
             self.delegate?.evrythngInitializationDidFail()

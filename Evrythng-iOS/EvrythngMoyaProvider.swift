@@ -28,14 +28,18 @@ public class EvrythngMoyaProvider<Target>: MoyaSugarProvider<Target> where Targe
             
             if case is CompositeEncoding = target.params?.encoding  {
                 if let queryParams = target.params?.values[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] {
-                    print("\(target.defaultURL.absoluteString)")
+                    if(Evrythng.DEBUGGING_ENABLED) {
+                        print("\(target.defaultURL.absoluteString)")
+                    }
                     let url = URLHelper.addOrUpdateQueryStringParameter(url: target.defaultURL.absoluteString, values: queryParams as! [String : String])
                     
                     let test = Endpoint<Target>(url: url, sampleResponseClosure: {
                         return EndpointSampleResponse.networkResponse(200, target.sampleData)
                     }, method: .post, parameters: target.params?.values, parameterEncoding: (target.params?.encoding)!, httpHeaderFields: target.httpHeaderFields)
                     
-                    print("Absolute Url: \(test.url)")
+                    if(Evrythng.DEBUGGING_ENABLED) {
+                        print("Absolute Url: \(test.url)")
+                    }
                     return test
                 }
             }

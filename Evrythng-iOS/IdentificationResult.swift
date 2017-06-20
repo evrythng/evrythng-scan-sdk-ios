@@ -11,14 +11,30 @@ import Moya_SwiftyJSONMapper
 import SwiftyJSON
 
 public final class IdentificationResult: ALSwiftyJSONAble {
-    
-    public var jsonData: JSON?
-    
+
     public var redirections: Array<String>?
     public var thng: Thng?
     public var product: Product?
     
-    public init?(jsonData: JSON) {
+    public var jsonData: JSON? {
+        set {
+            
+        }
+        get {
+            var dict: [String:Any] = [:]
+            dict["redirections"] = self.redirections
+            dict["thng"] = self.thng?.jsonData?.dictionaryObject
+            dict["product"] = self.product?.jsonData?.dictionaryObject
+            return JSON(dictionary: dict)
+        }
+    }
+    
+    public init() {
+        
+    }
+    
+    public convenience init?(jsonData: JSON) {
+        self.init()
         self.jsonData = jsonData
         self.redirections = jsonData["redirections"].arrayObject as? Array<String>
         

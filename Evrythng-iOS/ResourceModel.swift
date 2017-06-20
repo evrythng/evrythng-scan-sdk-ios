@@ -18,13 +18,28 @@ open class ResourceModel {
     public var tags: Array<String>?
     public var scopes: ScopeResource?
     
-    public var jsonData: JSON? = nil
+    public var jsonData: JSON? {
+        set {
+            
+        }
+        get {
+            var dict: [String:Any] = [:]
+            dict["id"] = self.id
+            dict["createdAt"] = self.createdAt
+            dict["customFields"] = self.customFields
+            dict["tags"] = self.tags
+            dict["scopes"] = self.scopes?.jsonData?.dictionary
+            
+            return JSON(dictionary: dict)
+        }
+    }
     
     public init() {
         
     }
     
-    required public init?(jsonData:JSON){
+    public convenience init?(jsonData:JSON){
+        self.init()
         self.jsonData = jsonData
         self.id = jsonData["id"].stringValue
         self.createdAt = jsonData["createdAt"].int64Value

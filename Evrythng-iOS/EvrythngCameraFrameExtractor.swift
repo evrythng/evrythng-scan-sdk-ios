@@ -42,19 +42,27 @@ internal class EvrythngCameraFrameExtractor: NSObject {
     }
     
     deinit {
-        print("\(#function) EvrythngCameraFrameExtractor")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("\(#function) EvrythngCameraFrameExtractor")
+        }
     }
     
     private func checkPermission() {
         switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
         case .authorized:
-            print("Camera Permission is Already Granted")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Camera Permission is Already Granted")
+            }
             permissionGranted = true
         case .notDetermined:
-            print("Camera Permission Not Yet Determined.. Requesting Permission")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Camera Permission Not Yet Determined.. Requesting Permission")
+            }
             requestPermission()
         default:
-            print("Camera Permission Not Granted. We just cry :(")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Camera Permission Not Granted. We just cry :(")
+            }
             permissionGranted = false
         }
     }
@@ -85,9 +93,13 @@ internal class EvrythngCameraFrameExtractor: NSObject {
         self.sessionQueue.suspend()
         AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { [unowned self] granted in
             if(granted) {
-                print("Camera Permission is now Granted!. Woohoo! :)")
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("Camera Permission is now Granted!. Hooray! :)")
+                }
             } else {
-                print("Camera Permission has been denied!. Ouch! :(")
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("Camera Permission has been denied!. Aww! :(")
+                }
             }
             self.permissionGranted = granted
             self.sessionQueue.resume()
@@ -155,7 +167,9 @@ internal class EvrythngCameraFrameExtractor: NSObject {
         metaDataOutput.metadataObjectTypes = metaDataOutput.availableMetadataObjectTypes
         */
         
-        print("Configure Session Successful")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("Configure Session Successful")
+        }
     }
     
     private func selectCaptureDevice() -> AVCaptureDevice? {

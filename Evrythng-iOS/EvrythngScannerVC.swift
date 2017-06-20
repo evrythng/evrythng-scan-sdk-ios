@@ -99,7 +99,9 @@ public class EvrythngScannerVC: UIViewController {
             }
             
             guard let ciImageToProcess = ciimg, let cid:CIDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyLow]) else {
-                print("CIImage is NIL or CIDetector not Available")
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("CIImage is NIL or CIDetector not Available")
+                }
                 return
             }
             
@@ -119,28 +121,18 @@ public class EvrythngScannerVC: UIViewController {
                 }
                 //strongSelf.printResults(withResults: results)
             } else {
-                print("CIDetectorTypeQRCode is Empty")
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("CIDetectorTypeQRCode is Empty")
+                }
             }
         }
-    }
-    
-    private func printResults(withResults results: NSArray) {
-        /*
-        for r in results {
-            if let face = r as? CIFaceFeature {
-                NSLog("Face found at (%f,%f) of dimensions %fx%f", face.bounds.origin.x, face.bounds.origin.y, face.bounds.width, face.bounds.height);
-            }
-            
-            if let qr = r as? CIQRCodeFeature {
-                print("QR Code Found: \(qr.messageString) at \(qr.bounds.origin.x)x\(qr.bounds.origin.y) with Size: \(qr.bounds.width)x\(qr.bounds.height)")
-            }
-        }
-         */
     }
     
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //print("CameraFrameExtractor Ref Count: \(CFGetRetainCount(self.cameraFrameExtractor))")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("CameraFrameExtractor Ref Count: \(CFGetRetainCount(self.cameraFrameExtractor))")
+        }
     }
     
     override public func viewWillDisappear(_ animated: Bool) {
@@ -162,7 +154,9 @@ public class EvrythngScannerVC: UIViewController {
     }
     
     deinit {
-        print("\(#function) EvrythngScannerVC")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("\(#function) EvrythngScannerVC")
+        }
     }
 
 }
@@ -170,7 +164,9 @@ public class EvrythngScannerVC: UIViewController {
 extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
     
     func capturedFromAVMetadataObject(value: String, ofType: String) {
-        print("Captured Value: \(value) ofType: \(ofType) Delegate: \(self.evrythngScannerDelegate != nil)")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("Captured Value: \(value) ofType: \(ofType) Delegate: \(self.evrythngScannerDelegate != nil)")
+        }
         self.detected = true
         self.evrythngScannerDelegate?.didFinishScan(viewController: self, value: value, format: nil, error: nil)
     }
@@ -202,7 +198,9 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
         
         size = CGSize(width: rect1Width / rect2Width, height: rect1Height / rect2Height)
         
-        print("Scale Between 2 Rects: \(String(describing:size))")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("Scale Between 2 Rects: \(String(describing:size))")
+        }
         
         return size
     }
@@ -220,7 +218,9 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             let actualRenderedImageHeight = imageSize.height * imageViewScaleHeight
             let actualRenderedImageSize = CGSize(width: actualRenderedImageWidth, height: actualRenderedImageHeight)
             
-            print("Image Size :\(String(describing:imageSize))) ImageView Scale: \(String(describing:imageViewScale)) Scaled Size: \(String(describing:actualRenderedImageSize))")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Image Size :\(String(describing:imageSize))) ImageView Scale: \(String(describing:imageViewScale)) Scaled Size: \(String(describing:actualRenderedImageSize))")
+            }
             
             // This is the exact rect containing the Aspect Fill Image
             let aspectFillImageRect = CGRect(x:0, y:0, width: actualRenderedImageWidth, height: actualRenderedImageHeight)
@@ -228,16 +228,20 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             let scaleBetweenRectWidth = scaleBetweenRect.width
             let scaleBetweenRectHeight = scaleBetweenRect.height
             
-            print("Parent Container: \(String(describing:parentFrame)) AspectFill Image Size :\(String(describing:aspectFillImageRect.size)))")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Parent Container: \(String(describing:parentFrame)) AspectFill Image Size :\(String(describing:aspectFillImageRect.size)))")
             
-            print("Scale Between Parent Frame and Aspect Fill Image: \(String(describing:scaleBetweenRect))")
+                print("Scale Between Parent Frame and Aspect Fill Image: \(String(describing:scaleBetweenRect))")
+            }
             
             let diffWidthBetweenRect = (aspectFillImageRect.size.width - parentFrame.size.width) / 2
             let diffHeightBetweenRect = (aspectFillImageRect.size.height - parentFrame.size.height) / 2
             let scaledDiffWidth = diffWidthBetweenRect / imageViewScaleWidth
             let scaledDiffHeight = diffHeightBetweenRect / imageViewScaleHeight
             
-            print("Diff Between Parent Frame and Aspect Fill Image Width: \(diffWidthBetweenRect)  Height: \(diffHeightBetweenRect) Scaled Width: \(scaledDiffWidth) Scaled Height: \(scaledDiffHeight)")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Diff Between Parent Frame and Aspect Fill Image Width: \(diffWidthBetweenRect)  Height: \(diffHeightBetweenRect) Scaled Width: \(scaledDiffWidth) Scaled Height: \(scaledDiffHeight)")
+            }
             
             let translatedX = ((targetCropFrame.origin.x * scaleBetweenRectWidth) + scaledDiffWidth) / imageViewScaleWidth
             let translatedY = ((targetCropFrame.origin.y * scaleBetweenRectHeight) + scaledDiffHeight) / imageViewScaleHeight
@@ -248,9 +252,13 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             
             croppedRect = translatedRect
             
-            print("Translated Cropped Rect :\(String(describing:croppedRect)) from : \(String(describing:aspectFillImageRect))")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Translated Cropped Rect :\(String(describing:croppedRect)) from : \(String(describing:aspectFillImageRect))")
+            }
         } else {
-            print("Unable to crop rect")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Unable to crop rect")
+            }
         }
         return croppedRect
     }
@@ -259,7 +267,10 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
        
         let cropRect = self.getCroppedRect(imageView: self.imageView, parent: self.cameraParentView.frame, target: self.maskedForegroundView.frame)
 
-        print("Crop: \(String(describing:cropRect))")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("Crop: \(String(describing:cropRect))")
+        }
+        
         let croppedImage = uiImage.crop(rect: cropRect)
         
         DispatchQueue.main.sync {
@@ -267,7 +278,9 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             self.croppedImageView.image = uiImage
             self.tempImgView.image = croppedImage
             
-            print("Scale Factor: \(self.imageView.contentScaleFactor)")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Scale Factor: \(self.imageView.contentScaleFactor)")
+            }
         }
         
         if let barcodeFeatures:[GMVBarcodeFeature] = self.detector.features(in: croppedImage, options: nil) as? [GMVBarcodeFeature] {
@@ -279,7 +292,9 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
                 let barcodeFormat = barcodeFeature!.format as GMVDetectorBarcodeFormat
                 barcodeRawValue = (barcodeFeature!.rawValue ?? "")!
                 
-                print("Detected \(barcodeFeatures.count) barcode(s) with Value: \(barcodeRawValue) Format: \(barcodeFormat)")
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("Detected \(barcodeFeatures.count) barcode(s) with Value: \(barcodeRawValue) Format: \(barcodeFormat)")
+                }
             } else {
                 //print ("No Detected Barcodes")
             }
@@ -294,8 +309,23 @@ extension EvrythngScannerVC: EvrythngCameraFrameExtractorDelegate {
             }
             
         } else {
-            print("Unable to extract features from image")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Unable to extract features from image")
+            }
         }
+    }
+    
+    func getAspectFillSize(aspectRatio: CGSize, minSize: CGSize) -> CGSize {
+        var aspectFillSize:CGSize = CGSize(width: minSize.width, height:minSize.height);
+        let mW = minSize.width / aspectRatio.width;
+        let mH = minSize.height / aspectRatio.height;
+        if(mH > mW) {
+            aspectFillSize.width = mH * aspectRatio.width;
+        }
+        else if(mW > mH) {
+            aspectFillSize.height = mW * aspectRatio.height;
+        }
+        return aspectFillSize;
     }
 }
 

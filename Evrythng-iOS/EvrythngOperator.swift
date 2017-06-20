@@ -48,14 +48,19 @@ public class EvrythngOperator: EvrythngNetworkExecutableProtocol {
                     let data = moyaResponse.data
                     let statusCode = moyaResponse.statusCode
                     let datastring = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                    print("Data: \(String(describing: datastring)) Status Code: \(statusCode)")
+                    
+                    if(Evrythng.DEBUGGING_ENABLED) {
+                        print("Data: \(String(describing: datastring)) Status Code: \(statusCode)")
+                    }
                     
                     if(200..<300 ~= statusCode) {
                         completionHandler(nil, nil)
                     } else {
                         do {
                             let err = try moyaResponse.map(to: EvrythngNetworkErrorResponse.self)
-                            print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
+                            if(Evrythng.DEBUGGING_ENABLED) {
+                                print("EvrythngNetworkErrorResponse: \(String(describing: err.jsonData?.rawString()))")
+                            }
                             completionHandler(nil, EvrythngNetworkError.ResponseError(response: err))
                         } catch {
                             print(error)

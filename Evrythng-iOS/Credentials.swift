@@ -12,8 +12,6 @@ import SwiftyJSON
 
 public final class Credentials: ALSwiftyJSONAble {
 
-    public var jsonData: JSON?
-    
     public var evrythngUser: String?
     public var evrythngApiKey: String?
     public var activationCode: String?
@@ -21,9 +19,29 @@ public final class Credentials: ALSwiftyJSONAble {
     public var password: String?
     public var status: CredentialStatus?
     
-    public init?(jsonData: JSON) {
-        self.jsonData = jsonData
+    public var jsonData: JSON? {
+        set {
+            
+        }
+        get {
+            var dict: [String:Any] = [:]
+            dict["evrythngUser"] = self.evrythngUser
+            dict["evrythngApiKey"] = self.evrythngApiKey
+            dict["activationCode"] = self.activationCode
+            dict["email"] = self.email
+            dict["password"] = self.password
+            dict["status"] = self.status?.rawValue
+            return JSON(dictionary: dict)
+        }
+    }
+    
+    public init() {
         
+    }
+    
+    public convenience init?(jsonData: JSON) {
+        self.init()
+        self.jsonData = jsonData
         self.evrythngUser = jsonData["evrythngUser"].string
         self.evrythngApiKey = jsonData["evrythngApiKey"].string
         self.activationCode = jsonData["activationCode"].string
@@ -32,7 +50,8 @@ public final class Credentials: ALSwiftyJSONAble {
         self.status = CredentialStatus(rawValue: jsonData["status"].stringValue)
     }
     
-    public init(email: String, password: String) {
+    public convenience init(email: String, password: String) {
+        self.init()
         self.email = email
         self.password = password
     }

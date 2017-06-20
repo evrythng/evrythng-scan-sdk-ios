@@ -20,13 +20,34 @@ public class AbstractUser: UserDelegate {
     public var app: String? = nil
     public var numberOfFriends = 0
     
-    public var jsonData: JSON? = nil
+    public var jsonData: JSON? {
+        set {
+            
+        }
+        get {
+            var dict: [String:Any] = [:]
+            dict["evrythngUser"] = self.id
+            dict["gender"] = self.gender?.rawValue
+            
+            if let birthday = self.birthday {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                dict["birthday"] = formatter.string(from: birthday)
+            }
+            dict["canLogin"] = self.canLogin
+            dict["project"] = self.project
+            dict["app"] = self.app
+            dict["numberOfFriends"] = self.numberOfFriends
+            return JSON(dictionary: dict)
+        }
+    }
     
     public init() {
         
     }
     
-    required public init?(jsonData:JSON){
+    public required convenience init?(jsonData:JSON){
+        self.init()
         self.jsonData = jsonData
         self.id = jsonData["evrythngUser"].stringValue
         self.gender = Gender(rawValue: jsonData["gender"].stringValue)

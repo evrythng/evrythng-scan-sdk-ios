@@ -78,6 +78,7 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         switch self {
         case .createUser(_, let user):
             if(user != nil) {
+                //print("Test: \(String(describing: user!.jsonData!.dictionaryObject))")
                 return JSONEncoding() => user!.jsonData!.dictionaryObject!
             } else {
                 var params:[String: Any] = [:]
@@ -105,7 +106,9 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         case .identify(let scanType, _, let value):
             let urlEncodedFilter = "type=\(scanType.rawValue)&value=\(value)"
             let encoding = URLEncoding() => ["filter": urlEncodedFilter]
-            print("Encoding: \(encoding.values.description)")
+            if(Evrythng.DEBUGGING_ENABLED) {
+                print("Encoding: \(encoding.values.description)")
+            }
             return encoding
             
         default:
@@ -157,7 +160,9 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
             }
         }
         
-        print("Headers: \(headers)")
+        if(Evrythng.DEBUGGING_ENABLED) {
+            print("Headers: \(headers)")
+        }
         return headers
     }
     
