@@ -49,11 +49,15 @@ as this will be the message that will be prompted to the user upon request to us
 
 2. In your `AppDelegate`, declare your import of the SDK:
 
-         import EvrythngiOS
+       import EvrythngiOS
 
 3. In your AppDelegate's `didFinishLaunchingWithOptions()` insert:
 
-         Evrythng.initialize(delegate: nil)
+       Evrythng.initialize(delegate: nil)
+         
+   if you wish to enable debugging(disabled by default), you may do so by having: 
+
+       Evrythng.DEBUGGING_ENABLED = true
 
 ### View Controller Implementation
 
