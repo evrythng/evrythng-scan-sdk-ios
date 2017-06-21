@@ -69,6 +69,7 @@
 		08E756E81ECC0C6400B9F6AD /* EvrythngScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E756E61ECC0C6400B9F6AD /* EvrythngScannerVC.swift */; };
 		08E756E91ECC0C6400B9F6AD /* EvrythngScannerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08E756E71ECC0C6400B9F6AD /* EvrythngScannerVC.xib */; };
 		08E756EB1ECC1E4000B9F6AD /* AbstractUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080A16A71EB071CA00601D6F /* AbstractUser.swift */; };
+		C4F913DB01C4F861B52D3618 /* Pods_EvrythngiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB673FCC7E94FA437C63F2B /* Pods_EvrythngiOSTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,8 @@
 		08E756E61ECC0C6400B9F6AD /* EvrythngScannerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvrythngScannerVC.swift; sourceTree = "<group>"; };
 		08E756E71ECC0C6400B9F6AD /* EvrythngScannerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EvrythngScannerVC.xib; sourceTree = "<group>"; };
 		1E836903775A0F1E610F25B4 /* Pods-EvrythngiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		3E4CDF112E2DF28317782A56 /* Pods-EvrythngiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4709A8BE5556D0B6F445C6D9 /* Pods-EvrythngiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EC7F124097A79A6638AD6BA /* Pods-EvrythngiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS.release.xcconfig"; sourceTree = "<group>"; };
 		7FB673FCC7E94FA437C63F2B /* Pods_EvrythngiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvrythngiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCFA3ED0FC31023D0E2C77B7 /* Pods_EvrythngiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvrythngiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0895C04F1EAF4841002E44A0 /* EvrythngiOS.framework in Frameworks */,
+				C4F913DB01C4F861B52D3618 /* Pods_EvrythngiOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +411,8 @@
 			children = (
 				1E836903775A0F1E610F25B4 /* Pods-EvrythngiOS.debug.xcconfig */,
 				7EC7F124097A79A6638AD6BA /* Pods-EvrythngiOS.release.xcconfig */,
+				3E4CDF112E2DF28317782A56 /* Pods-EvrythngiOSTests.debug.xcconfig */,
+				4709A8BE5556D0B6F445C6D9 /* Pods-EvrythngiOSTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -440,7 +446,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0895C0591EAF4841002E44A0 /* Build configuration list for PBXNativeTarget "EvrythngiOS" */;
 			buildPhases = (
-				BD5870FD636E572814253EEE /* [CP] Check Pods Manifest.lock */,
+				E814865A43FA4D6E25B50CAB /* [CP] Check Pods Manifest.lock */,
 				0895C0401EAF4840002E44A0 /* Sources */,
 				0895C0411EAF4840002E44A0 /* Frameworks */,
 				0895C0421EAF4840002E44A0 /* Headers */,
@@ -461,9 +467,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0895C05C1EAF4841002E44A0 /* Build configuration list for PBXNativeTarget "EvrythngiOSTests" */;
 			buildPhases = (
+				0646B24E15D97EF5C30808FE /* [CP] Check Pods Manifest.lock */,
 				0895C04A1EAF4841002E44A0 /* Sources */,
 				0895C04B1EAF4841002E44A0 /* Frameworks */,
 				0895C04C1EAF4841002E44A0 /* Resources */,
+				ED3D5CA7B58282C65890ED13 /* [CP] Embed Pods Frameworks */,
+				7843DF8C7ABACEF095218678 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -533,22 +542,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		57F39D4898853E798B45DBF8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD5870FD636E572814253EEE /* [CP] Check Pods Manifest.lock */ = {
+		0646B24E15D97EF5C30808FE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -561,6 +555,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		57F39D4898853E798B45DBF8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7843DF8C7ABACEF095218678 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E814865A43FA4D6E25B50CAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ED3D5CA7B58282C65890ED13 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -960,6 +1014,7 @@
 		};
 		0895C05D1EAF4841002E44A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E4CDF112E2DF28317782A56 /* Pods-EvrythngiOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = "Evrythng-iOSTests/Info.plist";
@@ -972,6 +1027,7 @@
 		};
 		0895C05E1EAF4841002E44A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4709A8BE5556D0B6F445C6D9 /* Pods-EvrythngiOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = "Evrythng-iOSTests/Info.plist";
