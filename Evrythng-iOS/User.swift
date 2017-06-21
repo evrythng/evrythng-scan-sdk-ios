@@ -41,6 +41,10 @@ public final class User: AbstractUser {
         }
     }
     
+    public required convenience init() {
+        self.init()
+    }
+    
     public required convenience init?(jsonData: JSON) {
         self.init()
         self.jsonData = jsonData

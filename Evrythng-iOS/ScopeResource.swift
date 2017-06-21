@@ -28,7 +28,7 @@ open class ScopeResource {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     

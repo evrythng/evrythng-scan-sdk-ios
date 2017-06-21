@@ -34,7 +34,7 @@ open class ResourceModel {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     

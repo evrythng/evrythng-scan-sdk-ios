@@ -32,7 +32,11 @@ open class DurableResourceModel: ResourceModel {
         }
     }
     
-    public convenience init?(jsonData:JSON){
+    public required convenience init() {
+        self.init()
+    }
+    
+    public required convenience init?(jsonData:JSON){
         self.init()
         self.jsonData = jsonData
         self.updatedAt = jsonData["updatedAt"].int64Value

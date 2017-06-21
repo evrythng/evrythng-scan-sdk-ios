@@ -45,6 +45,10 @@ open class Product: DurableResourceModel, ALSwiftyJSONAble {
         }
     }
     
+    public required convenience init() {
+        self.init()
+    }
+    
     public required convenience init?(jsonData:JSON){
         self.init()
         self.jsonData = jsonData

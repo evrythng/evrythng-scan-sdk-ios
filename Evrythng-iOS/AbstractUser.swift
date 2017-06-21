@@ -42,7 +42,7 @@ public class AbstractUser: UserDelegate {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     
