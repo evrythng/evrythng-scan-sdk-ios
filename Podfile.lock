@@ -21,6 +21,11 @@ PODS:
     - KRActivityIndicatorView (~> 2.0.2)
   - Moya (8.0.5):
     - Moya/Core (= 8.0.5)
+  - Moya-ObjectMapper (2.3.2):
+    - Moya-ObjectMapper/Core (= 2.3.2)
+  - Moya-ObjectMapper/Core (2.3.2):
+    - Moya (~> 8.0)
+    - ObjectMapper (~> 2.2)
   - Moya-SwiftyJSONMapper (2.2.0):
     - Moya-SwiftyJSONMapper/Core (= 2.2.0)
   - Moya-SwiftyJSONMapper/Core (2.2.0):
@@ -43,6 +48,7 @@ DEPENDENCIES:
   - GoogleMobileVision/BarcodeDetector
   - KRProgressHUD
   - Moya (~> 8.0.3)
+  - Moya-ObjectMapper
   - Moya-SwiftyJSONMapper (~> 2.2)
   - MoyaSugar (~> 0.4)
   - SwiftyJSON (~> 3.1)
@@ -58,12 +64,13 @@ SPEC CHECKSUMS:
   KRActivityIndicatorView: 2a9d5442ba8da6274db3afdf46aeaef7cf6dd8ad
   KRProgressHUD: 14f9fad06080bdb1e59569104a8eda654c83e813
   Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
+  Moya-ObjectMapper: 1b05f10bb69fb6c8750d497d2974c1c63c08c3a9
   Moya-SwiftyJSONMapper: 03c9d3e562c9025c8c00fa3ec97ae1da61a2be37
   MoyaSugar: 302175740302bed7309b9483c4a3321631eab753
   ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
   Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: bb19014ca3a7ae575e86fe01b32308fcc173cc05
+PODFILE CHECKSUM: af377eb3aed844cd2130d06e49d9cad0d7e8865c
 
 COCOAPODS: 1.2.1

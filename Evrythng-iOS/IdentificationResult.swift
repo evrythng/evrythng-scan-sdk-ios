@@ -29,7 +29,7 @@ public final class IdentificationResult: ALSwiftyJSONAble {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     

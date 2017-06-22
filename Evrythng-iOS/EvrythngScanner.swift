@@ -14,7 +14,7 @@ import KRProgressHUD
 
 public class EvrythngScanner {
 
-    weak var delegate: EvrythngScannerResultDelegate?
+    weak var delegate: EvrythngIdentifierResultDelegate?
     
     var barcodeScannerVC: EvrythngScannerVC
     var presentingVC: UIViewController?
@@ -24,7 +24,7 @@ public class EvrythngScanner {
         self.barcodeScannerVC = EvrythngScannerVC(nibName: "EvrythngScannerVC", bundle: Bundle(identifier: "com.imfreemobile.EvrythngiOS"))
     }
     
-    convenience public init(presentedBy presentingVC: UIViewController?, withResultDelegate delegate: EvrythngScannerResultDelegate?) {
+    convenience public init(presentedBy presentingVC: UIViewController?, withResultDelegate delegate: EvrythngIdentifierResultDelegate?) {
         self.init(presentedBy: presentingVC)
         self.presentingVC = presentingVC
         self.delegate = delegate
@@ -54,7 +54,7 @@ public class EvrythngScanner {
     }
     
     public final func identify(barcode: String) {
-        self.delegate?.evrythngScannerDidFinishScan(scanIdentificationsResponse: nil, value: barcode, error: nil)
+        self.delegate?.evrythngScannerDidFinishIdentify(scanIdentificationsResponse: nil, value: barcode, error: nil)
     }
     
     public final func scanBarcode() {
@@ -113,11 +113,14 @@ extension EvrythngScanner: EvrythngScannerDelegate {
                 return
             }
             
-            KRProgressHUD.show()
+            DispatchQueue.main.async {
+                self.delegate?.evrythngScannerWillStartIdentify()
+            }
             self.identify(barcode: barcodeVal, format: format, completionHandler: { (result, err) in
-                KRProgressHUD.dismiss()
-                self.dismissVC(viewController: viewController)
-                self.delegate?.evrythngScannerDidFinishScan(scanIdentificationsResponse: result, value: barcodeVal, error: err)
+                DispatchQueue.main.async {
+                    self.dismissVC(viewController: viewController)
+                    self.delegate?.evrythngScannerDidFinishIdentify(scanIdentificationsResponse: result, value: barcodeVal, error: err)
+                }
             })
             return
         }

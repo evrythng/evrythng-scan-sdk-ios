@@ -31,7 +31,7 @@ public final class Meta: ALSwiftyJSONAble {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     

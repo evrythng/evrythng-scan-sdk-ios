@@ -35,7 +35,7 @@ public final class Credentials: ALSwiftyJSONAble {
         }
     }
     
-    public init() {
+    public required init() {
         
     }
     

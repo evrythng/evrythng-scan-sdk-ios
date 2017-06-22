@@ -46,8 +46,8 @@ open class Thng: DurableResourceModel, ALSwiftyJSONAble {
         }
     }
     
-    public required convenience init() {
-        self.init()
+    public required init() {
+        super.init()
     }
     
     public required convenience init?(jsonData:JSON){
