@@ -29,7 +29,6 @@ public class AuthService: EvrythngService {
     
     public func evrythngUserLogouter(apiKey: String) -> EvrythngUserLogouter {
         let evtUserLogouter = EvrythngUserLogouter(apiKey: apiKey)
-        evtUserLogouter.apiKey = self.apiKey
         return evtUserLogouter
     }
     
