@@ -1,5 +1,6 @@
 ## Minimum Requirements: 
 Xcode 8.3 / Swift 3
+
 iOS 10.0
 
 ## Project Setup
@@ -42,6 +43,8 @@ iOS 10.0
 12. Initial setup is done! Try and build your project. 
 
 ## Code Usage Example
+
+Before anything else, you must have a registered ![Evrythng developer account](https://developers.evrythng.com/docs/using-the-dashboard-overview#section-getting-started)
 
 ### Initialization
 1. In your app’s _**Info.plist**_ file and declare the following key-value properties:
