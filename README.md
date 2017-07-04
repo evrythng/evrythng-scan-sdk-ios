@@ -1,7 +1,7 @@
 ## Minimum Requirements: 
-Xcode 8.3 / Swift 3
+Xcode 8.3+ / Swift 3
 
-iOS 10.0
+Actual device running iOS 10.0+
 
 ## Project Setup
 1. Download the [respository](https://github.com/evrythng/evrythng-ios-sdk)
@@ -201,4 +201,6 @@ where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanM
 
        evrythngApiManager.authService.evrythngUserLogouter(apiKey: credentials.evrythngApiKey!).execute(completionHandler: { (logoutResp, err) in }
 
-Hooray! You've just integrated Evrythng iOS SDK into your application!
+### Other Important Developer Notes
+
+Please note that you will have to target your project against an actual test device(non-simulator e.g. iPhone) for you  to successfully compile your Xcode Project. This is the target behavior as of now as this relieves you(the developer) the issue when you submit your app(.ipa) on AppStore since `EvrythngiOS.framework` does not target an iOS Simulator(x86) architecture which Apple prohibits.
