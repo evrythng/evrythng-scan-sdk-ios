@@ -208,8 +208,10 @@ Please note that you will have to target your project against an actual test dev
 
 ## FAQs (Frequently Asked Questions)
 
-1. I have completed importing the Frameworks and when I try to build/run it crashes upon loading
+1. Q: I have completed importing the Frameworks and when I try to build/run it crashes upon loading
+
 A: <b>Make you sure you followed Steps #9 onwards. </b> 
 
-2. I have completed Steps #9 onwards and when I try to build / run, it says something like `No Such Module`, `Use of unresolved identifier`, etc.
+2. Q: I have completed Steps #9 onwards and when I try to build / run, it says something like `No Such Module`, `Use of unresolved identifier`, etc.
+
 A: <b>Make sure you followed Step #13 wherein you need to target Xcode to an actual device (e.g. iPhone)</b> 
