@@ -41,6 +41,7 @@ Actual device running iOS 10.0+
 11. Make sure that all added Frameworks from Step #10 have the **Code Sign On Copy** checked
 ![Copy Files Phase](https://preview.ibb.co/ebOQ8Q/Screen_Shot_2017_06_13_at_12_24_43_PM.png)
 12. Initial setup is done! Try and build your project. 
+13. If you encounter an error relting to `unresolved symbols`, you need to target your Xcode on an actual iOS Device(e.g. iPhone) instead of using iOS Simulator.
 
 ## Code Usage Example
 
@@ -204,3 +205,11 @@ where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanM
 ### Other Important Developer Notes
 
 Please note that you will have to target your project against an actual test device(non-simulator e.g. iPhone) for you  to successfully compile your Xcode Project. This is the target behavior as of now as this relieves you(the developer) the issue when you submit your app(.ipa) on AppStore since `EvrythngiOS.framework` does not target an iOS Simulator(x86) architecture which Apple prohibits.
+
+##FAQs (Frequently Asked Questions)
+
+1. I have completed importing the Frameworks and when I try to build/run it crashes upon loading
+A: <b>Make you sure you followed Steps #9 onwards. </b> 
+
+2. I have completed Steps #9 onwards and when I try to build / run, it says something like `No Such Module`, `Use of unresolved identifier`, etc.
+A: <b>Make sure you followed Step #13 wherein you need to target Xcode to an actual device (e.g. iPhone)</b> 
