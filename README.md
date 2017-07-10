@@ -3,6 +3,8 @@ Xcode 8.3+ / Swift 3
 
 Actual device running iOS 10.0+
 
+[Evrythng developer account](https://developers.evrythng.com/docs/using-the-dashboard-overview#section-getting-started)
+
 ## Project Setup
 1. Download the [respository](https://github.com/evrythng/evrythng-ios-sdk)
 2. After downloading, do take note of the following frameworks in the topmost folder:
