@@ -31,7 +31,7 @@ Actual device running iOS 10.0+
 4. Create a new project and choose `Single View Application`. Click `Next`
 5. Fill in the required fields and click `Next`.
 6. Select the folder where you want to save your project. Click `Save`
-7. Navigate to `Project Navigator` and drag the 18 frameworks stated in **Step #2** inside `Frameworks` folder and ensure that **Copy Files if Needed** is checked.
+7. Navigate to `Project Navigator` and create a new Group from your root app directory and name it `Frameworks`(if not yet existing) and drag the 18 frameworks stated in **Step #2** inside this folder and ensure that **Copy Files if Needed** is checked.
 8. Navigate to your _**Project’s**_ `Targets` -> `Build Phases` -> `Link Binary With Libraries` and ensure that all 18 frameworks are included in the list
 ![Link Binary with Libraries](https://preview.ibb.co/g60GF5/Screen_Shot_2017_06_13_at_12_24_30_PM.png)
 
