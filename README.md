@@ -32,7 +32,7 @@ Actual device running iOS 10.0+
 5. Fill in the required fields and click `Next`.
 6. Select the folder where you want to save your project. Click `Save`
 7. Navigate to `Project Navigator` and drag the 18 frameworks stated in **Step #2** inside `Frameworks` folder and ensure that **Copy Files if Needed** is checked.
-8. Navigate to your _**Project’s Targets**_ -> `Build Phases` -> `Link Binary With Libraries` and ensure that all 18 frameworks are included in the list
+8. Navigate to your _**Project’s**_ `Targets` -> `Build Phases` -> `Link Binary With Libraries` and ensure that all 18 frameworks are included in the list
 ![Link Binary with Libraries](https://preview.ibb.co/g60GF5/Screen_Shot_2017_06_13_at_12_24_30_PM.png)
 
 9. Still in your _**Project’s Targets**_ -> `Build Phases` tab add a **New Copy Files Phase** by clicking the `+` button on the upper left portion of the window below the `General` tab
@@ -42,6 +42,9 @@ Actual device running iOS 10.0+
 
 11. Make sure that all added Frameworks from Step #10 have the **Code Sign On Copy** checked
 ![Copy Files Phase](https://preview.ibb.co/ebOQ8Q/Screen_Shot_2017_06_13_at_12_24_43_PM.png)
+
+Please make sure that the selected `Destination` is set to **Frameworks**
+
 12. Initial setup is done! Try and build your project. 
 13. If you encounter an error relting to `unresolved symbols`, you need to target your Xcode on an actual iOS Device(e.g. iPhone) instead of using iOS Simulator.
 
