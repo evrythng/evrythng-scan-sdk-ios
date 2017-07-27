@@ -26,6 +26,7 @@ public enum EvrythngNetworkService {
     
     // Scan
     case identify(scanType: EvrythngScanTypes, scanMethod: EvrythngScanMethods, value: String)
+    case identifyImage(scanType: EvrythngScanTypes, scanMethod: EvrythngScanMethods, imageBase64Value:String)
 }
 
 extension EvrythngNetworkService: EvrythngNetworkTargetType {
@@ -60,6 +61,8 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
             return .get("/thngs/\(thngId)")
         case .identify:
             return .get("/scan/identifications")
+        case .identifyImage(_, _, _):
+            return .post("/scan/identifications")
         }
     }
     
@@ -110,6 +113,12 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
                 print("Encoding: \(encoding.values.description)")
             }
             return encoding
+            
+        case .identifyImage(let scanType, _, let imageBase64Value):
+            var params:[String: Any] = [:]
+            params[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] = ["filter": "type=\(scanType.rawValue)"]
+            params[EvrythngNetworkServiceConstants.REQUEST_BODY_PARAMETER_KEY] = ["image": imageBase64Value]
+            return CompositeEncoding() => params
             
         default:
             return JSONEncoding() => [:]

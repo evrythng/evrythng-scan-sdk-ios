@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 
 public enum EvrythngScanTypes: String {
-    
     // OCR
     case TEXT = "text"
     
@@ -35,6 +34,10 @@ public enum EvrythngScanTypes: String {
     
     // 2D
     case QR_CODE = "qr_code"
+    case DATA_MATRIX = "dm"
+    
+    // ALL
+    case ALL = "codabar,code_11,code_39,code_93,code_128,ean_8,ean_13,industr_25,itf,rss_14,rss_expanded,rss_limited,upc_a,upc_e,qr_code,dm"
     
     
     public func getScanMethod() -> EvrythngScanMethods {
@@ -56,8 +59,13 @@ public enum EvrythngScanTypes: String {
         case .UPC_A, .UPC_E:
             return EvrythngScanMethods.ONE_DIMENSIONAL
         // TWO - DIMENSIONAL
+        case .DATA_MATRIX:
+            fallthrough
         case .QR_CODE:
             return EvrythngScanMethods.TWO_DIMENSIONAL
+        // ALL
+        case .ALL:
+            return EvrythngScanMethods.ALL
         }
     }
 }

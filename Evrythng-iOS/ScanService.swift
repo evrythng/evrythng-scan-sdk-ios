@@ -18,4 +18,17 @@ public class ScanService: EvrythngService {
         return evtOperator
     }
     
+    public func evrythngScanOperator(imageBase64Value: String) -> EvrythngScanOperator {
+        
+        let evtOperator = EvrythngScanOperator(scanType: EvrythngScanTypes.IMAGE, scanMethod: EvrythngScanMethods.IMAGE, value: imageBase64Value)
+        evtOperator.apiKey = self.apiKey
+        
+        return evtOperator
+    }
+    
+    public func evrythngScanOperator(image: UIImage) -> EvrythngScanOperator {
+        
+        return evrythngScanOperator(imageBase64Value: image.toBase64()!)
+    }
+
 }
