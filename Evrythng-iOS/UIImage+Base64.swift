@@ -10,8 +10,10 @@ import UIKit
 
 extension UIImage {
     
-    func toBase64() -> String? {
+    public func toBase64() -> String? {
         let imageData = UIImagePNGRepresentation(self)
-        return imageData?.base64EncodedString()
+        let base64String:String = (imageData?.base64EncodedString())!
+        let fullBase64String:String = "data:image/png;base64," + base64String
+        return fullBase64String
     }
 }

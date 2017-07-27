@@ -228,6 +228,7 @@
 		080A171B1EB0828400601D6F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70BB1D871F29DB53002604B6 /* UIImage+Base64.swift */,
 				080A171C1EB082C000601D6F /* StringUtils.swift */,
 				084D50CA1EC1EBA900E5F396 /* JSON.swift */,
 				08A29B8E1EC2F4000042DB8D /* DateUtils.swift */,
@@ -271,7 +272,6 @@
 		08666DA21EC93B33004B30BF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				70BB1D861F29DB25002604B6 /* Extensions */,
 				08A300C01ECB0123006F8047 /* Enums */,
 				08666DA51EC945D9004B30BF /* DefaultAlamofireManager.swift */,
 				08C81DE71ED84B5E00D23DA2 /* CompositeEncoding.swift */,
@@ -429,14 +429,6 @@
 				7FB673FCC7E94FA437C63F2B /* Pods_EvrythngiOSTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		70BB1D861F29DB25002604B6 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				70BB1D871F29DB53002604B6 /* UIImage+Base64.swift */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
