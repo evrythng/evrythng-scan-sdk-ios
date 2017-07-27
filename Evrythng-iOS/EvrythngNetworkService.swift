@@ -61,7 +61,7 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
             return .get("/thngs/\(thngId)")
         case .identify:
             return .get("/scan/identifications")
-        case .identifyImage(_, _, _):
+        case .identifyImage:
             return .post("/scan/identifications")
         }
     }
