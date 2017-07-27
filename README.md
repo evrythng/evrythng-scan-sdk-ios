@@ -203,6 +203,36 @@ In some cases, you may also opt to use your own custom Barcode Scanner and ident
 
 where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanMethods` Enum types, respectively. (Reference: https://developers.evrythng.com/v3.0/docs/identifier-recognition)
 
+### Custom Scanning Using an Image
+
+The SDK also allows you to use an image to identify a `Product`. There are two ways to do this. One is to provide the Base64 string value of your image and the other, by providing the actual UIImage instance letting the SDK do the conversion implicitly for you.
+    
+
+    using `Base64 String` value:
+        If you have the base64 string representation, you may use it immediately:
+            
+        let base64Value:String = "data:image/png;base64,iVBORw0KGgoAAAANSUh..."     //note: string is truncated for example's sake
+        
+        Otherwise; you may use the SDK's UIImage extension to convert it first to a base64 string:
+            
+            let base64Value:String = myUIImage.toBase64()!
+
+        Then, explicitly invoke evrythngScanOperator and pass the base64 string as depicted below:
+            evrythngApiManager.scanService.evrythngScanOperator(imageBase64Value: base64Value).execute(completionHandler: { (scanIdentificationsResponse, error) in
+                completionHandler(scanIdentifactionsResponse, err)
+            })
+
+
+    using `UIImage` instance
+
+        Create your own UIImage
+            let myUIImage:UIImage! = UIImage(named: "mySampleImage.png")!
+        
+        Then, explicitly invoke evrythngScanOperator and pass the UIImage instance:
+            evrythngApiManager.scanService.evrythngScanOperator(image: myUIImage).execute(completionHandler: { (scanIdentificationsResponse, error) in
+                completionHandler(scanIdentifactionsResponse, err)
+            })
+
 ### Logging Out a User
 
        evrythngApiManager.authService.evrythngUserLogouter(apiKey: credentials.evrythngApiKey!).execute(completionHandler: { (logoutResp, err) in }
