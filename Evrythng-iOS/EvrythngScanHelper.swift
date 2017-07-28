@@ -21,35 +21,35 @@ public final class EvrythngScanHelper {
     public static func getScanTypeFrom(format: GMVDetectorBarcodeFormat) -> EvrythngScanTypes? {
         
         switch(format) {
-            case GMVDetectorBarcodeFormat.code128:
-                return EvrythngScanTypes.CODE_128
-            case GMVDetectorBarcodeFormat.code39:
-                return EvrythngScanTypes.CODE_39
-            case GMVDetectorBarcodeFormat.code93:
-                return EvrythngScanTypes.CODE_93
-            case GMVDetectorBarcodeFormat.codaBar:
-                return EvrythngScanTypes.CODABAR
-            case GMVDetectorBarcodeFormat.EAN13:
-                return EvrythngScanTypes.EAN_13
-            case GMVDetectorBarcodeFormat.EAN8:
-                return EvrythngScanTypes.EAN_8
-            case GMVDetectorBarcodeFormat.ITF:
-                return EvrythngScanTypes.ITF_14
-            case GMVDetectorBarcodeFormat.UPCA:
-                return EvrythngScanTypes.UPC_A
-            case GMVDetectorBarcodeFormat.UPCE:
-                return EvrythngScanTypes.UPC_E
-            case GMVDetectorBarcodeFormat.dataMatrix:
-                fallthrough
-            case GMVDetectorBarcodeFormat.qrCode:
-                fallthrough
-            case GMVDetectorBarcodeFormat.PDF417:
-                fallthrough
-            case GMVDetectorBarcodeFormat.aztec:
-                return EvrythngScanTypes.QR_CODE // TODO: Re-check
-            default:
-                return nil
+        case GMVDetectorBarcodeFormat.code128:
+            return EvrythngScanTypes.CODE_128
+        case GMVDetectorBarcodeFormat.code39:
+            return EvrythngScanTypes.CODE_39
+        case GMVDetectorBarcodeFormat.code93:
+            return EvrythngScanTypes.CODE_93
+        case GMVDetectorBarcodeFormat.codaBar:
+            return EvrythngScanTypes.CODABAR
+        case GMVDetectorBarcodeFormat.EAN13:
+            return EvrythngScanTypes.EAN_13
+        case GMVDetectorBarcodeFormat.EAN8:
+            return EvrythngScanTypes.EAN_8
+        case GMVDetectorBarcodeFormat.ITF:
+            return EvrythngScanTypes.ITF_14
+        case GMVDetectorBarcodeFormat.UPCA:
+            return EvrythngScanTypes.UPC_A
+        case GMVDetectorBarcodeFormat.UPCE:
+            return EvrythngScanTypes.UPC_E
+        case GMVDetectorBarcodeFormat.dataMatrix:
+            return EvrythngScanTypes.DATA_MATRIX
+        case GMVDetectorBarcodeFormat.qrCode:
+            fallthrough
+        case GMVDetectorBarcodeFormat.PDF417:
+            fallthrough
+        case GMVDetectorBarcodeFormat.aztec:
+            return EvrythngScanTypes.QR_CODE // TODO: Re-check
+        default:
+            return nil
         }
     }
-
+    
 }

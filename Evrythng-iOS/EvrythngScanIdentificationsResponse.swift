@@ -13,23 +13,28 @@ import SwiftyJSON
 
 public final class EvrythngScanIdentificationsResponse: ALSwiftyJSONAble {
     
-    public var jsonData: JSON?
+    //private
+    private var _jsonData: JSON?
+    private var _results: [IdentificationResult]?
+    private var _meta: Meta?
     
-    public var results: [IdentificationResult]?
-    public var meta: Meta?
+    //public
+    public var jsonData: JSON? {return _jsonData}
+    public var results: [IdentificationResult]? {return _results}
+    public var meta: Meta? {return _meta}
     
     public init?(jsonData: JSON) {
         
-        self.jsonData = jsonData
+        self._jsonData = jsonData
         if let temp_results = jsonData.array?.first {
             if let resultsArr = temp_results["results"].array {
-                self.results = [IdentificationResult]()
+                self._results = [IdentificationResult]()
                 for dic in resultsArr {
-                    self.results?.append(IdentificationResult(jsonData: dic)!)
+                    self._results?.append(IdentificationResult(jsonData: dic)!)
                 }
             }
             //print("Init Results: \(String(describing: self.results))")
-            self.meta = Meta(jsonData: jsonData["meta"])
+            self._meta = Meta(jsonData: jsonData["meta"])
         }
     }
 }

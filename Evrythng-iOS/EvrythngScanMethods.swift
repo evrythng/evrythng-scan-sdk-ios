@@ -13,4 +13,5 @@ public enum EvrythngScanMethods: String {
     case IMAGE = "ir"
     case ONE_DIMENSIONAL = "1d"
     case TWO_DIMENSIONAL = "2d"
+    case ALL = "1d,2d"
 }

@@ -11,6 +11,8 @@ import Moya
 import MoyaSugar
 import Moya_SwiftyJSONMapper
 
+
+
 public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
     
     public var apiKey: String?
@@ -36,8 +38,13 @@ public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
     }
     
     public func execute(completionHandler: @escaping (EvrythngScanIdentificationsResponse?, Swift.Error?) -> Void) {
-    
-        let identifyRepo = EvrythngNetworkService.identify(scanType: self.scanType, scanMethod: self.scanMethod, value: self.value)
+        
+        var identifyRepo:EvrythngNetworkService!
+        if (self.scanType == EvrythngScanTypes.IMAGE){
+            identifyRepo = EvrythngNetworkService.identifyImage(scanType: self.scanType, scanMethod: self.scanMethod, imageBase64Value: self.value)
+        }else {
+            identifyRepo = EvrythngNetworkService.identify(scanType: self.scanType, scanMethod: self.scanMethod, value: self.value)
+        }
         
         self.getDefaultProvider().request(identifyRepo) { result in
             switch result {
