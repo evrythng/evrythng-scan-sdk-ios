@@ -45,8 +45,14 @@ Actual device running iOS 10.0+
 
 Please make sure that the selected `Destination` is set to **Frameworks**
 
-12. Initial setup is done! Try and build your project. 
-13. If you encounter an error relting to `unresolved symbols`, you need to target your Xcode on an actual iOS Device(e.g. iPhone) instead of using iOS Simulator.
+12. Make sure that frameworks on each build phases should be similar to this.
+![embedded binaries](https://user-images.githubusercontent.com/10010236/28449628-19f590a4-6e14-11e7-814b-8437d08f9d02.png)
+![linked frameworks and libraries](https://user-images.githubusercontent.com/10010236/28449631-1bc71b14-6e14-11e7-82aa-5f74c3067404.png)
+![link binary with libraries](https://user-images.githubusercontent.com/10010236/28449632-1d97dfbe-6e14-11e7-8837-6e699a37e871.png)
+![copy files](https://user-images.githubusercontent.com/10010236/28449635-1f0eab48-6e14-11e7-9c3a-5a17e8a8daa7.png)
+
+13. Initial setup is done! Try and build your project. 
+14. If you encounter an error relting to `unresolved symbols`, you need to target your Xcode on an actual iOS Device(e.g. iPhone) instead of using iOS Simulator.
 
 ## Code Usage Example
 
@@ -203,6 +209,36 @@ In some cases, you may also opt to use your own custom Barcode Scanner and ident
 
 where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanMethods` Enum types, respectively. (Reference: https://developers.evrythng.com/v3.0/docs/identifier-recognition)
 
+### Custom Scanning Using an Image
+
+The SDK also allows you to use an image to identify a `Product`. There are two ways to do this. One is to provide the Base64 string value of your image and the other, by providing the actual UIImage instance letting the SDK do the conversion implicitly for you.
+    
+
+    using `Base64 String` value:
+        If you have the base64 string representation, you may use it immediately:
+            
+        let base64Value:String = "data:image/png;base64,iVBORw0KGgoAAAANSUh..."     //note: string is truncated for example's sake
+        
+        Otherwise; you may use the SDK's UIImage extension to convert it first to a base64 string:
+            
+            let base64Value:String = myUIImage.toBase64()!
+
+        Then, explicitly invoke evrythngScanOperator and pass the base64 string as depicted below:
+            evrythngApiManager.scanService.evrythngScanOperator(imageBase64Value: base64Value).execute(completionHandler: { (scanIdentificationsResponse, error) in
+                completionHandler(scanIdentifactionsResponse, err)
+            })
+
+
+    using `UIImage` instance
+
+        Create your own UIImage
+            let myUIImage:UIImage! = UIImage(named: "mySampleImage.png")!
+        
+        Then, explicitly invoke evrythngScanOperator and pass the UIImage instance:
+            evrythngApiManager.scanService.evrythngScanOperator(image: myUIImage).execute(completionHandler: { (scanIdentificationsResponse, error) in
+                completionHandler(scanIdentifactionsResponse, err)
+            })
+
 ### Logging Out a User
 
        evrythngApiManager.authService.evrythngUserLogouter(apiKey: credentials.evrythngApiKey!).execute(completionHandler: { (logoutResp, err) in }
@@ -210,6 +246,13 @@ where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanM
 ### Other Important Developer Notes
 
 Please note that you will have to target your project against an actual test device(non-simulator e.g. iPhone) for you  to successfully compile your Xcode Project. This is the target behavior as of now as this relieves you(the developer) the issue when you submit your app(.ipa) on AppStore since `EvrythngiOS.framework` does not target an iOS Simulator(x86) architecture which Apple prohibits.
+
+In case you wanted to run EvrythngiOS.framework on simulator follow these instruction
+
+1.  Go to Build Settings -> Architecture -> Valid Architecture -> Debug -> Add x86_64
+![valid arch](https://user-images.githubusercontent.com/10010236/28452026-56269014-6e23-11e7-8cf8-d7ae6513c48f.png)
+2.  Go to Xcode Product then Build
+3. You can now add EvrythngiOS.framework under the products group to your project 
 
 ## FAQs (Frequently Asked Questions)
 

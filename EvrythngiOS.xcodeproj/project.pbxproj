@@ -69,6 +69,7 @@
 		08E756E81ECC0C6400B9F6AD /* EvrythngScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E756E61ECC0C6400B9F6AD /* EvrythngScannerVC.swift */; };
 		08E756E91ECC0C6400B9F6AD /* EvrythngScannerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08E756E71ECC0C6400B9F6AD /* EvrythngScannerVC.xib */; };
 		08E756EB1ECC1E4000B9F6AD /* AbstractUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080A16A71EB071CA00601D6F /* AbstractUser.swift */; };
+		70BB1D881F29DB53002604B6 /* UIImage+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BB1D871F29DB53002604B6 /* UIImage+Base64.swift */; };
 		C4F913DB01C4F861B52D3618 /* Pods_EvrythngiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB673FCC7E94FA437C63F2B /* Pods_EvrythngiOSTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +164,7 @@
 		1E836903775A0F1E610F25B4 /* Pods-EvrythngiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3E4CDF112E2DF28317782A56 /* Pods-EvrythngiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4709A8BE5556D0B6F445C6D9 /* Pods-EvrythngiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOSTests/Pods-EvrythngiOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		70BB1D871F29DB53002604B6 /* UIImage+Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Base64.swift"; sourceTree = "<group>"; };
 		7EC7F124097A79A6638AD6BA /* Pods-EvrythngiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvrythngiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-EvrythngiOS/Pods-EvrythngiOS.release.xcconfig"; sourceTree = "<group>"; };
 		7FB673FCC7E94FA437C63F2B /* Pods_EvrythngiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvrythngiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCFA3ED0FC31023D0E2C77B7 /* Pods_EvrythngiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvrythngiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +228,7 @@
 		080A171B1EB0828400601D6F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70BB1D871F29DB53002604B6 /* UIImage+Base64.swift */,
 				080A171C1EB082C000601D6F /* StringUtils.swift */,
 				084D50CA1EC1EBA900E5F396 /* JSON.swift */,
 				08A29B8E1EC2F4000042DB8D /* DateUtils.swift */,
@@ -626,6 +629,7 @@
 			files = (
 				08C81DED1ED91B2F00D23DA2 /* EvrythngNetworkTargetType.swift in Sources */,
 				08E756EB1ECC1E4000B9F6AD /* AbstractUser.swift in Sources */,
+				70BB1D881F29DB53002604B6 /* UIImage+Base64.swift in Sources */,
 				089AD9371EDC348F007F7DDD /* IdentificationResult.swift in Sources */,
 				089AD9311EDC3091007F7DDD /* EvrythngScanMethods.swift in Sources */,
 				089AD9331EDC332E007F7DDD /* EvrythngScanIdentificationsResponse.swift in Sources */,
