@@ -41,7 +41,8 @@ public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
         
         var identifyRepo:EvrythngNetworkService!
         if (self.scanType == EvrythngScanTypes.IMAGE){
-            identifyRepo = EvrythngNetworkService.identifyImage(scanType: self.scanType, scanMethod: self.scanMethod, imageBase64Value: self.value)
+            //identifyRepo = EvrythngNetworkService.identifyImage(scanType: self.scanType, scanMethod: self.scanMethod, imageBase64Value: self.value)
+            identifyRepo = EvrythngNetworkService.identifyImage(scanType: self.scanType, scanMethod: self.scanType.getScanMethod(), imageBase64Value: self.value)
         }else {
             identifyRepo = EvrythngNetworkService.identify(scanType: self.scanType, scanMethod: self.scanMethod, value: self.value)
         }
@@ -51,10 +52,11 @@ public class EvrythngScanOperator: EvrythngNetworkExecutableProtocol {
             case let .success(moyaResponse):
                 let data = moyaResponse.data
                 let statusCode = moyaResponse.statusCode
+                
                 let datastring = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
                 
                 if(Evrythng.DEBUGGING_ENABLED) {
-                    print("Data: \(datastring!) Status Code: \(statusCode)")
+                    print("Response Data: \(datastring!) Status Code: \(statusCode)")
                 }
                 
                 if(200..<300 ~= statusCode) {

@@ -16,10 +16,10 @@ struct CompositeEncoding: ParameterEncoding {
             return try urlRequest.asURLRequest()
         }
         
-        let queryParameters = (parameters["query"] as! Parameters)
+        let queryParameters = (parameters[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] as! Parameters)
         let queryRequest = try URLEncoding(destination: .queryString).encode(urlRequest, with: queryParameters)
         
-        if let body = parameters["body"] {
+        if let body = parameters[EvrythngNetworkServiceConstants.REQUEST_BODY_PARAMETER_KEY] {
             let bodyParameters = (body as! Parameters)
             var bodyRequest = try JSONEncoding().encode(urlRequest, with: bodyParameters)
             

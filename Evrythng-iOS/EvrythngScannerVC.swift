@@ -59,11 +59,6 @@ public class EvrythngScannerVC: UIViewController {
         self.cameraFrameExtractor = EvrythngCameraFrameExtractor()
         self.cameraFrameExtractor.delegate = self
         
-//        let testView = UIView(frame: CGRect(x:0,y:0,width:100,height:100))
-//        testView.layer.borderWidth = 2
-//        testView.layer.borderColor = UIColor.green.cgColor
-//        self.cameraParentView.addSubview(testView)
-        
         self.detected = false
     }
     

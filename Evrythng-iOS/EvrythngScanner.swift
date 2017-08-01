@@ -14,6 +14,8 @@ import KRProgressHUD
 
 public class EvrythngScanner {
 
+    internal static let OPTIMAL_MOBILE_VISION_WIDTH_HEIGHT: CGFloat = 175
+    
     weak var delegate: EvrythngIdentifierResultDelegate?
     
     var barcodeScannerVC: EvrythngScannerVC
@@ -66,6 +68,61 @@ public class EvrythngScanner {
         }
     }
     
+    public final func scanBarcodeImage(image: UIImage) {
+        
+        // Resize the image since MobileVision apparently cannot process high res images
+        let resizedImage = self.resizeImage(image: image, newWidth: EvrythngScanner.OPTIMAL_MOBILE_VISION_WIDTH_HEIGHT)
+        
+        if let detector = GMVDetector(ofType: GMVDetectorTypeBarcode, options: nil) {
+            if let barcodeFeatures:[GMVBarcodeFeature] = detector.features(in: resizedImage, options: nil) as? [GMVBarcodeFeature] {
+                
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print ("Barcode Features Count: \(barcodeFeatures.count)")
+                }
+                
+                let barcodeFeature = barcodeFeatures.last
+                var barcodeRawValue = ""
+                
+                if (barcodeFeature != nil) {
+                    let barcodeFormat = barcodeFeature!.format as GMVDetectorBarcodeFormat
+                    barcodeRawValue = (barcodeFeature!.rawValue ?? "")!
+                    
+                    if(Evrythng.DEBUGGING_ENABLED) {
+                        print("Detected \(barcodeFeatures.count) barcode(s) with Value: \(barcodeRawValue) Format: \(barcodeFormat)")
+                    }
+                    
+                    if(!StringUtils.isStringEmpty(string: barcodeRawValue)) {
+                        self.delegate?.evrythngScannerWillStartIdentify()
+                        self.identify(barcode: barcodeRawValue, format: barcodeFormat, completionHandler: { (result, err) in
+                            self.delegate?.evrythngScannerDidFinishIdentify(scanIdentificationsResponse: result, value: barcodeRawValue, error: err)
+                        })
+                    }
+                    
+                } else {
+                    if(Evrythng.DEBUGGING_ENABLED) {
+                        print ("No Detected Barcodes")
+                    }
+                    
+                    self.delegate?.evrythngScannerDidFinishIdentify(scanIdentificationsResponse: nil, value: "", error: EvrythngError.NoDetectedBarcode)
+                }
+            } else {
+                if(Evrythng.DEBUGGING_ENABLED) {
+                    print("Unable to extract features from image")
+                }
+            }
+        }
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x:0, y:0, width:newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
     
     func dismissVC(viewController: UIViewController) {
         self.barcodeScannerVC.evrythngScannerDelegate = nil

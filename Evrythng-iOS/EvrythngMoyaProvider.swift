@@ -38,7 +38,11 @@ public class EvrythngMoyaProvider<Target>: MoyaSugarProvider<Target> where Targe
                     }, method: .post, parameters: target.params?.values, parameterEncoding: (target.params?.encoding)!, httpHeaderFields: target.httpHeaderFields)
                     
                     if(Evrythng.DEBUGGING_ENABLED) {
-                        print("Absolute Url: \(test.url)")
+                        print("Request Url: \(test.url)")
+                        
+                        if let bodyParams = target.params?.values[EvrythngNetworkServiceConstants.REQUEST_BODY_PARAMETER_KEY] {
+                            print("Request Body Data: \(bodyParams)")
+                        }
                     }
                     return test
                 }

@@ -37,7 +37,7 @@ public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
         let epClosure = { (target: EvrythngNetworkService) -> Endpoint<EvrythngNetworkService> in
             
             if case is CompositeEncoding = target.params?.encoding  {
-                if let params = target.params?.values["query"] {
+                if let params = target.params?.values[EvrythngNetworkServiceConstants.REQUEST_URL_PARAMETER_KEY] {
                     
                     if(Evrythng.DEBUGGING_ENABLED) {
                         print("\(target.defaultURL.absoluteString)")
@@ -50,7 +50,11 @@ public class EvrythngUserCreator: EvrythngNetworkExecutableProtocol {
                     }, method: .post, parameters: target.params?.values, parameterEncoding: (target.params?.encoding)!, httpHeaderFields: target.httpHeaderFields)
                     
                     if(Evrythng.DEBUGGING_ENABLED) {
-                        print("Absolute Url: \(test.url)")
+                        print("Request Url: \(test.url)")
+                        
+                        if let bodyParams = target.params?.values[EvrythngNetworkServiceConstants.REQUEST_BODY_PARAMETER_KEY] {
+                            print("Request Body Data: \(bodyParams)")
+                        }
                     }
                     return test
                 }
