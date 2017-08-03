@@ -14,7 +14,7 @@ public enum EvrythngScanTypes: String {
     case TEXT = "text"
     
     // IR
-    case IMAGE = "image"
+    case IMAGE = "codabar,code_11,code_39,code_93,code_128,ean_8,ean_13,industr_25,itf,rss_14,rss_expanded,rss_limited,upc_a,upc_e,qr_code,dm,image"
     
     // 1D
     case CODABAR = "codabar"
