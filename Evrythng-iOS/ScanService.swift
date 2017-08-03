@@ -25,7 +25,7 @@ public class ScanService: EvrythngService {
         return evtOperator
     }
     
-    public func evrythngScanOperator(image: UIImage) -> EvrythngScanOperator {
+    private func evrythngScanOperator(image: UIImage) -> EvrythngScanOperator {
         return evrythngScanOperator(imageBase64Value: image.toBase64()!)
     }
 
