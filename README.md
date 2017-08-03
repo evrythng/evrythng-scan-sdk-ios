@@ -276,11 +276,13 @@ if let err = error {
 <!--
 In some cases, you may also opt to use a pre-determined encoded barcode value to identify a `Product` or `Thng` explicitly by using the following code:
 -->
+<!--
 ```
 evrythngApiManager.scanService.evrythngScanOperator(scanType: <EvrythnngScanTypes>, scanMethod: <EvrythngScanMethods>, value: <barcode_value>).execute { (scanIdentifactionsResponse, err) in
     completionHandler(scanIdentifactionsResponse, err)
 }
 ```
+-->
 <!--
 where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanMethods` Enum types, respectively. (Reference: https://developers.evrythng.com/v3.0/docs/identifier-recognition)
 -->
