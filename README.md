@@ -180,6 +180,8 @@ where `userId` and `activationCode` is the `evrythngUser` and `activationCode` p
 
 ### Scanning an Product / Thng
 
+**Using the device's camera**
+
 You can use the default integrated barcode scanner by using the following code:
 
 ```
@@ -223,60 +225,123 @@ if let err = error {
 }
 ```
 
+**Using `UIImage` instance**
+
+The SDK also allows you to scan a barcode directly from a UIImage instance using the following code in your ViewController:
+
+```
+let evrythngScanner = EvrythngScanner.init(presentedBy: self, withResultDelegate: self)
+evrythngScanner.scanBarcodeImage(image: UIImage(named:"<your_own_image>")!)
+```
+
+Similarly, you can get the results the same way when using the device's camera with the implementation of the `EvrythngIdentifierResultDelegate`:
+
+```
+// MARK: EvrythngIdentifierResultDelegate
+
+extension ViewController: EvrythngIdentifierResultDelegate {
+
+    public func evrythngScannerWillStartIdentify() {
+        // Notifies you that the scanning will commence
+    }
+
+    public func evrythngScannerDidFinishIdentify(scanIdentificationsResponse: EvrythngScanIdentificationsResponse?, value: String, error: Swift.Error?) {
+        // Notifies you if the scanning succeeds / fails
+    }
+}
+```
+
+If the scanning succeeds, you can inspect the `scanIdentificationsResponse`:
+
+```
+if let scanResponse = scanIdentificationsResponse {        
+    if let results = scanResponse.results {
+        print("Scan Result Successful: \(value)")
+        print("Results: \(String(describing:scanResponse.results)")
+    }
+}
+```
+
+Otherwise, you may check the value of `error`:
+
+```
+if let err = error { 
+    print("Scan Result Error: \(err.localizedDescription)")
+}
+```
+
+<!--
 ### Custom Scanning
-
+-->
+<!--
 In some cases, you may also opt to use a pre-determined encoded barcode value to identify a `Product` or `Thng` explicitly by using the following code:
-
+-->
 ```
 evrythngApiManager.scanService.evrythngScanOperator(scanType: <EvrythnngScanTypes>, scanMethod: <EvrythngScanMethods>, value: <barcode_value>).execute { (scanIdentifactionsResponse, err) in
     completionHandler(scanIdentifactionsResponse, err)
 }
 ```
-
+<!--
 where `scanType` and `scanMethod` are of `EvrythnngScanTypes` and `EvrythngScanMethods` Enum types, respectively. (Reference: https://developers.evrythng.com/v3.0/docs/identifier-recognition)
+-->
 
+<!--
 ### Custom Scanning Using an Image
-
+-->
+<!--
 The SDK also allows you to use an image to identify a `Product`. There are two ways to do this. One is to provide the Base64 string value of your image and the other, by providing the actual `UIImage` instance and letting the SDK do the conversion implicitly for you.
-
+-->
+<!--
 **Using `Base64 String` value**
-
+-->
+<!--
 If you have the base64 string representation, you may use it immediately:
-            
+-->
+<!--
 ```
 //note: string is truncated for example's sake
 let base64Value:String = "data:image/png;base64,iVBORw0KGgoAAAANSUh..."
 ```
-        
+-->
+<!--     
 Otherwise; you may use the SDK's `UIImage` extension to convert it first to a base64 string:
-
+-->
+<!--
 ```
 let base64Value:String = myUIImage.toBase64()!
 ```
-
+-->
+<!--
 Then, explicitly invoke evrythngScanOperator and pass the base64 string as depicted below:
-
+-->
+<!--
 ```            
 evrythngApiManager.scanService.evrythngScanOperator(imageBase64Value: base64Value).execute(completionHandler: { (scanIdentificationsResponse, error) in
     completionHandler(scanIdentifactionsResponse, err)
 })
 ```
-
+-->
+<!--
 **Using `UIImage` instance**
-
+-->
+<!--
 Create your own UIImage
-
+-->
+<!--
 ```
 let myUIImage:UIImage! = UIImage(named: "mySampleImage.png")!
 ```
-        
+-->
+<!--
 Then, explicitly invoke evrythngScanOperator and pass the `UIImage` instance:
-
+-->
+<!--
 ```
 evrythngApiManager.scanService.evrythngScanOperator(image: myUIImage).execute(completionHandler: { (scanIdentificationsResponse, error) in
     completionHandler(scanIdentifactionsResponse, err)
 })
 ```
+-->
 
 ### Logging Out a User
 
