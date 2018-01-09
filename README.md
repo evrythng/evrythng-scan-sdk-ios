@@ -1,3 +1,12 @@
+# evrythng-scan-sdk-ios
+
+> **Beta**:
+> This is the initial stable beta release of this SDK for developers to use, and may be subject to change and improvement in the future until this beta label is removed. If you encounter any problems using it, please [get in touch](https://developers.evrythng.com/docs/support) let us know.
+
+This project contains an iOS native SDK for embedding a barcode scanning experience inside a native iOS application. It also includes functionality for authenticating as an EVRYTHNG application and creating/logging in and out of Application Users. 
+
+Visit the [EVRYTHNG Developer Hub](https://developers.evrythng.com) for more information on the EVRYTHNG Platform.
+
 ## Minimum Requirements: 
 
 * Xcode 8.3+ / Swift 3
