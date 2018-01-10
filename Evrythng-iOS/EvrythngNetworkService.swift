@@ -153,8 +153,6 @@ extension EvrythngNetworkService: EvrythngNetworkTargetType {
         case .logout(let apiKey):
             authorization = apiKey
         case .deleteUser(let operatorApiKey, _):
-            // Sample Operator API Key
-            //authorization = ""
             authorization = operatorApiKey
         default:
             // Get from NSUserDefaults instead
